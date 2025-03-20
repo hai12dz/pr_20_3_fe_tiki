@@ -1,3 +1,8 @@
+import { Carousel } from "antd";
+import TikiAdsComponent from "./ads";
+import CarouselComponent from "./slide/slide";
+import MyCarousel from "./slide/carousel";
+
 const TikiBookstore = () => {
     return (
         <div className="sc-dfad4f1d-3 TjGns">
@@ -5,54 +10,10 @@ const TikiBookstore = () => {
                 <h2>Nhà Sách Tiki</h2>
             </div>
 
-            <div className="sc-784a51b1-0 LtAYH">
-                <div style={{ padding: 0, marginTop: 12, margin: 0, position: "relative", minHeight: "auto" }}>
-                    <div className="slick-slider sc-d612eb48-0 dkAJdI slick-initialized" dir="ltr" style={{ height: 0 }}>
+            <MyCarousel />
 
-                        <img
-                            alt="arrow"
-                            src="https://salt.tikicdn.com/ts/upload/6b/59/c2/b61db5f1c32cfdc6d75e59d4fac2dbe8.png"
-                            data-role="none"
-                            className="sc-d612eb48-4 sc-d612eb48-6 icdGxW kZtGGl slick-arrow slick-prev"
-                            style={{ display: "block" }}
-                        />
 
-                        <div className="slick-list">
-                            <div className="slick-track" style={{ width: "1100%", left: "-100%" }}>
-                                {[...Array(20)].map((_, index) => (
-                                    <div
-                                        key={index}
-                                        data-index={index - 2}
-                                        className={`slick-slide ${index >= 2 && index <= 3 ? "slick-active" : "slick-cloned"}`}
-                                        aria-hidden={index < 2 || index > 3}
-                                        style={{ width: "4.545454545454546%" }}
-                                    ></div>
-                                ))}
-                            </div>
-                        </div>
 
-                        <img
-                            alt="arrow"
-                            src="https://salt.tikicdn.com/ts/upload/6b/59/c2/b61db5f1c32cfdc6d75e59d4fac2dbe8.png"
-                            data-role="none"
-                            className="sc-d612eb48-4 sc-d612eb48-5 icdGxW fzfIiZ slick-arrow slick-next"
-                            style={{ display: "block" }}
-                        />
-
-                        <ul className="slick-dots">
-                            {[...Array(5)].map((_, index) => (
-                                <li key={index} className={index === 0 ? "slick-active" : ""}>
-                                    <div className="sc-d612eb48-1 hLwCuj">
-                                        <div className="sc-d612eb48-3 ippzQx dot"></div>
-                                        <div className="sc-d612eb48-2 gQVqTX extra-area"></div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
 
             <div className="sc-9f1e84db-0 hzwFlv">
                 <div className="sc-9f1e84db-2 cASiea">Khám phá theo danh mục</div>
@@ -74,7 +35,6 @@ const TikiBookstore = () => {
                     ))}
                 </div>
             </div>
-
             <div style={{ height: "436px" }} className="sc-e7181281-2 hrzgqR">
                 <div className="sc-e7181281-3 dpPpxv">Nhập khẩu chính hãng</div>
                 <div className="sc-e7181281-1 iCGauc">
