@@ -1,80 +1,284 @@
-// ProductFilter.scss
-
 .product-filter-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 16px;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    color: #333;
+    padding: 8px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #38383D;
 
-    .filter-title {
-        font-size: 20px;
-        font-weight: 600;
+    .filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 16px;
+
+        .filter-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #27272A;
+        }
+
+        .filter-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid #EBEBF0;
+            color: #38383D;
+            font-size: 14px;
+            cursor: pointer;
+
+            svg {
+                width: 16px;
+                height: 16px;
+                color: #808089;
+            }
+        }
     }
 
-    .filter-sections {
+    .filter-sections-brand {
         display: flex;
-        gap: 24px;
+        gap: 32px;
         margin-bottom: 16px;
+        border-bottom: 1px solid #f1f1f1;
+        padding-bottom: 16px;
+        position: relative;
+        overflow: hidden; // Cho phép toàn bộ phần filter hiển thị đầy đủ
+
 
         .filter-section {
             .section-label {
                 font-size: 14px;
-                color: #666;
-                margin-bottom: 8px;
+                color: #808089;
+                margin-bottom: 12px;
+                font-weight: 400;
+            }
+
+            .filter-options-wrapper {
+                display: flex;
+                align-items: center;
+                position: relative;
+
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 40px; // Kích thước phần mờ
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                    pointer-events: none;
+                }
+            }
+
+            .expand-button {
+                transition: transform 0.3s ease;
+            }
+
+            .filter-options-container {
+                transition: transform 0.3s ease;
+                will-change: transform;
+                width: calc(100% - 40px);
+                position: relative;
+                /* Đảm bảo nội dung không bị cắt khi transform */
+                overflow: visible;
             }
 
             .filter-options {
                 display: flex;
                 align-items: center;
+                flex-wrap: nowrap;
                 gap: 8px;
+                width: max-content;
 
                 .option-chip {
-                    border: 1px solid #e0e0e0;
+                    border: 1px solid #EBEBF0;
                     border-radius: 16px;
-                    padding: 6px 12px;
+                    padding: 4px 12px;
                     font-size: 14px;
                     background-color: #fff;
                     cursor: pointer;
                     transition: all 0.2s;
+                    color: #38383D;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    white-space: nowrap;
 
                     &:hover {
-                        border-color: #0d5cb6;
-                        color: #0d5cb6;
+                        background-color: #f5f5f5;
                     }
                 }
+            }
 
-                .expand-button {
+            .expand-button,
+            .arrow-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 32px;
+                height: 32px;
+                border: 1px solid #EBEBF0;
+                border-radius: 50%;
+                background-color: #fff;
+                cursor: pointer;
+                transition: all 0.2s;
+                color: #808089;
+                position: absolute;
+                right: 0;
+                z-index: 2;
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+
+                .arrow-icon-wrapper {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    width: 32px;
-                    height: 32px;
-                    border: 1px solid #e0e0e0;
-                    border-radius: 50%;
-                    background-color: #fff;
-                    cursor: pointer;
 
                     svg {
-                        transition: transform 0.3s ease;
+                        width: 16px;
+                        height: 16px;
+                        color: #808089;
                     }
+                }
 
-                    &:hover {
-                        border-color: #0d5cb6;
-                        color: #0d5cb6;
-                    }
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    color: #808089;
                 }
             }
         }
     }
 
-    .filter-options {
+    .filter-sections-supplier {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #f1f1f1;
+        padding-bottom: 16px;
+        position: relative;
+        overflow: visible; // Cho phép toàn bộ phần filter hiển thị đầy đủ
+
+
+        .filter-section {
+            .section-label {
+                font-size: 14px;
+                color: #808089;
+                margin-bottom: 12px;
+                font-weight: 400;
+            }
+
+            .filter-options-wrapper {
+                display: flex;
+                align-items: center;
+                position: relative;
+
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 40px; // Kích thước phần mờ
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                    pointer-events: none;
+                }
+            }
+
+            .expand-button {
+                transition: transform 0.3s ease;
+            }
+
+            .filter-options-container {
+                transition: transform 0.3s ease;
+                will-change: transform;
+                width: calc(100% - 40px);
+                position: relative;
+                /* Đảm bảo nội dung không bị cắt khi transform */
+                overflow: visible;
+            }
+
+            .filter-options {
+                display: flex;
+                align-items: center;
+                flex-wrap: nowrap;
+                gap: 8px;
+                width: max-content;
+
+                .option-chip {
+                    border: 1px solid #EBEBF0;
+                    border-radius: 16px;
+                    padding: 4px 12px;
+                    font-size: 14px;
+                    background-color: #fff;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    color: #38383D;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    white-space: nowrap;
+
+                    &:hover {
+                        background-color: #f5f5f5;
+                    }
+                }
+            }
+
+            .expand-button,
+            .arrow-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 32px;
+                height: 32px;
+                border: 1px solid #EBEBF0;
+                border-radius: 50%;
+                background-color: #fff;
+                cursor: pointer;
+                transition: all 0.2s;
+                color: #808089;
+                position: absolute;
+                right: 0;
+                z-index: 2;
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+
+                .arrow-icon-wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                        color: #808089;
+                    }
+                }
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    color: #808089;
+                }
+            }
+        }
+    }
+
+    /* Các phần CSS còn lại giữ nguyên */
+    .filter-options-row {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 24px;
-        padding: 16px 0;
-        border-top: 1px solid #f1f1f1;
+        padding: 8px 0;
 
         .option {
             display: flex;
@@ -88,6 +292,15 @@
                 width: 18px;
                 height: 18px;
                 cursor: pointer;
+                accent-color: #0B74E5;
+                border-radius: 2px;
+                border: 1px solid #EBEBF0;
+            }
+
+            .option-content {
+                display: flex;
+                align-items: center;
+                gap: 4px;
             }
         }
 
@@ -98,16 +311,26 @@
 
         .deal-tag {
             color: #FF424F;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-weight: 500;
         }
 
         .freeship-tag {
             color: #0B74E5;
+            font-weight: 500;
         }
 
         .star-rating {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
+        }
+
+        .option-text {
+            font-size: 13px;
+            color: #38383D;
         }
 
         .sort {
@@ -115,8 +338,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #808089;
-            font-size: 13px;
+
+            .sort-label {
+                color: #808089;
+                font-size: 13px;
+            }
 
             .sort-button {
                 height: 32px;
@@ -129,6 +355,7 @@
                 gap: 4px;
                 color: #38383D;
                 cursor: pointer;
+                font-size: 13px;
                 transition: all 0.2s ease;
 
                 &:hover {
@@ -145,12 +372,23 @@
 
 // Responsive adjustments
 @media (max-width: 768px) {
-    .filter-sections {
-        flex-direction: column;
-    }
+    .product-filter-container {
+        .filter-sections {
+            flex-direction: column;
+            gap: 16px;
+        }
 
-    .filter-options {
-        flex-direction: column;
-        align-items: flex-start;
+        .filter-options-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+
+            .sort {
+                margin-left: 0;
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 8px;
+            }
+        }
     }
 }
