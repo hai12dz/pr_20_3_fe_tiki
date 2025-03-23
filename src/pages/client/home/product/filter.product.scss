@@ -9,7 +9,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 16px;
 
         .filter-title {
             font-size: 20px;
@@ -36,7 +35,7 @@
         }
     }
 
-    .filter-sections-brand {
+    .filter-sections {
         display: flex;
         gap: 32px;
         margin-bottom: 16px;
@@ -44,114 +43,6 @@
         padding-bottom: 16px;
         position: relative;
         overflow: hidden; // Cho phép toàn bộ phần filter hiển thị đầy đủ
-
-
-        .filter-section {
-            .section-label {
-                font-size: 14px;
-                color: #808089;
-                margin-bottom: 12px;
-                font-weight: 400;
-            }
-
-            .filter-options-wrapper {
-                display: flex;
-                align-items: center;
-                position: relative;
-
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    width: 40px; // Kích thước phần mờ
-                    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-                    pointer-events: none;
-                }
-            }
-
-            .expand-button {
-                transition: transform 0.3s ease;
-            }
-
-            .filter-options-container {
-                transition: transform 0.3s ease;
-                will-change: transform;
-                width: calc(100% - 40px);
-                position: relative;
-                /* Đảm bảo nội dung không bị cắt khi transform */
-                overflow: visible;
-            }
-
-            .filter-options {
-                display: flex;
-                align-items: center;
-                flex-wrap: nowrap;
-                gap: 8px;
-                width: max-content;
-
-                .option-chip {
-                    border: 1px solid #EBEBF0;
-                    border-radius: 16px;
-                    padding: 4px 12px;
-                    font-size: 14px;
-                    background-color: #fff;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                    color: #38383D;
-                    height: 32px;
-                    display: flex;
-                    align-items: center;
-                    white-space: nowrap;
-
-                    &:hover {
-                        background-color: #f5f5f5;
-                    }
-                }
-            }
-
-            .expand-button,
-            .arrow-button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 32px;
-                height: 32px;
-                border: 1px solid #EBEBF0;
-                border-radius: 50%;
-                background-color: #fff;
-                cursor: pointer;
-                transition: all 0.2s;
-                color: #808089;
-                position: absolute;
-                right: 0;
-                z-index: 2;
-
-                &:hover {
-                    background-color: #f5f5f5;
-                }
-
-                .arrow-icon-wrapper {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    svg {
-                        width: 16px;
-                        height: 16px;
-                        color: #808089;
-                    }
-                }
-
-                svg {
-                    width: 16px;
-                    height: 16px;
-                    color: #808089;
-                }
-            }
-        }
     }
 
     .filter-sections-supplier {
@@ -162,112 +53,169 @@
         padding-bottom: 16px;
         position: relative;
         overflow: visible; // Cho phép toàn bộ phần filter hiển thị đầy đủ
+    }
 
+    .filter-section {
+        .section-label {
+            font-size: 14px;
+            color: #808089;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
 
-        .filter-section {
-            .section-label {
-                font-size: 14px;
-                color: #808089;
-                margin-bottom: 12px;
-                font-weight: 400;
+        .filter-options-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                pointer-events: none;
             }
+        }
 
-            .filter-options-wrapper {
-                display: flex;
-                align-items: center;
-                position: relative;
+        .expand-button {
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+            /* Add margin to create space */
+            position: relative;
+            /* Change from absolute to relative */
+            right: auto;
+            /* Remove the absolute positioning */
+            z-index: 2;
 
+            /* Sửa SVG thương hiệu luôn hướng xuống dưới */
+            svg path {
+                d: path("M9.5 5L15.5 11L9.5 17") !important;
+                transform: rotate(90deg);
+                transform-origin: center;
+                display: block;
+            }
+        }
 
+        .filter-options-container {
+            transition: transform 0.3s ease;
+            will-change: transform;
+            width: calc(100% - 50px);
+            /* Adjust width to account for the button's new position */
+            position: relative;
+            overflow: visible;
+        }
+
+        .supplier-options-container {
+            transition: transform 0.3s ease;
+            will-change: transform;
+            width: calc(100% - 50px);
+            position: relative;
+            overflow: hidden;
+
+            /* Tạo hiệu ứng che "infobook" */
+            .filter-options {
+                width: 90%;
+                /* Giảm chiều rộng để che phần tử cuối */
+                overflow: hidden;
+
+                /* Thêm gradient để làm mờ phần cuối */
                 &::after {
                     content: "";
                     position: absolute;
                     right: 0;
                     top: 0;
                     bottom: 0;
-                    width: 40px; // Kích thước phần mờ
+                    width: 60px;
                     background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
                     pointer-events: none;
+                    z-index: 3;
                 }
             }
 
-            .expand-button {
-                transition: transform 0.3s ease;
-            }
+            /* Khi mở rộng, hiển thị toàn bộ và bỏ hiệu ứng mờ */
+            &.expanded {
+                .filter-options {
+                    width: 100%;
 
-            .filter-options-container {
-                transition: transform 0.3s ease;
-                will-change: transform;
-                width: calc(100% - 40px);
-                position: relative;
-                /* Đảm bảo nội dung không bị cắt khi transform */
-                overflow: visible;
-            }
-
-            .filter-options {
-                display: flex;
-                align-items: center;
-                flex-wrap: nowrap;
-                gap: 8px;
-                width: max-content;
-
-                .option-chip {
-                    border: 1px solid #EBEBF0;
-                    border-radius: 16px;
-                    padding: 4px 12px;
-                    font-size: 14px;
-                    background-color: #fff;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                    color: #38383D;
-                    height: 32px;
-                    display: flex;
-                    align-items: center;
-                    white-space: nowrap;
-
-                    &:hover {
-                        background-color: #f5f5f5;
+                    &::after {
+                        display: none;
                     }
                 }
             }
+        }
 
-            .expand-button,
-            .arrow-button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 32px;
-                height: 32px;
+        .filter-options {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 21px;
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 8px;
+            width: max-content;
+
+            .option-chip {
                 border: 1px solid #EBEBF0;
-                border-radius: 50%;
+                border-radius: 16px;
+                padding: 4px 12px;
+                font-size: 14px;
                 background-color: #fff;
                 cursor: pointer;
                 transition: all 0.2s;
-                color: #808089;
-                position: absolute;
-                right: 0;
-                z-index: 2;
+                color: #38383D;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
 
                 &:hover {
                     background-color: #f5f5f5;
                 }
+            }
+        }
 
-                .arrow-icon-wrapper {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+        .arrow-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            border: 1px solid #EBEBF0;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #808089;
+            position: absolute;
+            /* Keep this absolute */
+            right: 0;
+            z-index: 2;
+            margin-left: 10px;
+            /* Add margin here too for consistency */
 
-                    svg {
-                        width: 16px;
-                        height: 16px;
-                        color: #808089;
-                    }
-                }
+            &:hover {
+                background-color: #f5f5f5;
+            }
+
+            .arrow-icon-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 svg {
                     width: 16px;
                     height: 16px;
                     color: #808089;
                 }
+            }
+
+            svg {
+                width: 16px;
+                height: 16px;
+                color: #808089;
             }
         }
     }
