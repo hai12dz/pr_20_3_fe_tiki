@@ -5,10 +5,12 @@ const ProductFilter: React.FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [brandExpanded, setBrandExpanded] = useState(false);
     const [supplierExpanded, setSupplierExpanded] = useState(false);
+    const [showLeftArrow, setShowLeftArrow] = useState(false);
 
     const brandContainerRef = useRef<HTMLDivElement>(null);
     const supplierContainerRef = useRef<HTMLDivElement>(null);
     const filterSectionsRef = useRef<HTMLDivElement>(null);
+    const brandSectionRef = useRef<HTMLDivElement>(null);
 
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
@@ -16,32 +18,42 @@ const ProductFilter: React.FC = () => {
     const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB..."];
     const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB...", "info book"];
 
-    const handleBrandToggle = () => {
-        setBrandExpanded(!brandExpanded);
-    };
+
 
     const handleSupplierToggle = () => {
         setSupplierExpanded(!supplierExpanded);
+        // Khi nhấn vào nút "Nhà cung cấp", hiển thị/ẩn mũi tên trái
+        setShowLeftArrow(!supplierExpanded);
+    };
+
+    const handleLeftArrowClick = () => {
+        // Khi nhấn vào mũi tên bên trái, đưa về trạng thái mặc định
+        setSupplierExpanded(false);
+        setShowLeftArrow(false);
     };
 
     const brandExpandButtonRef = useRef<HTMLButtonElement>(null);
     const filterHeaderRef = useRef<HTMLDivElement>(null);
-
+    // Thêm vào useEffect hoặc thay đổi useEffect hiện tại
     useEffect(() => {
-        if (brandContainerRef.current && supplierContainerRef.current && brandExpandButtonRef.current) {
+        if (brandContainerRef.current && supplierContainerRef.current && brandExpandButtonRef.current && brandSectionRef.current) {
             if (supplierExpanded) {
-                brandContainerRef.current.style.transform = 'translateX(-150px)';
-                supplierContainerRef.current.style.transform = 'translateX(-150px)';
-                brandExpandButtonRef.current.style.transform = 'translateX(-150px)';
+                // Khi mở rộng nhà cung cấp
+                brandContainerRef.current.style.transform = 'translateX(-50px)';
+                supplierContainerRef.current.style.transform = 'translateX(-50px)';
+                brandExpandButtonRef.current.style.transform = 'translateX(-50px)';
+                brandSectionRef.current.style.transform = 'translateX(-50px)';
 
-                // Add expanded class when expanded
+                // Đảm bảo supplier container được mở rộng
                 supplierContainerRef.current.classList.add('expanded');
             } else {
+                // Reset transforms
                 brandContainerRef.current.style.transform = 'translateX(0)';
                 supplierContainerRef.current.style.transform = 'translateX(0)';
                 brandExpandButtonRef.current.style.transform = 'translateX(0)';
+                brandSectionRef.current.style.transform = 'translateX(0)';
 
-                // Remove expanded class when collapsed
+                // Xóa class expanded
                 if (supplierContainerRef.current.classList.contains('expanded')) {
                     supplierContainerRef.current.classList.remove('expanded');
                 }
@@ -49,16 +61,39 @@ const ProductFilter: React.FC = () => {
         }
     }, [supplierExpanded]);
 
+    // Thêm vào handleBrandToggle
+    const handleBrandToggle = () => {
+        setBrandExpanded(!brandExpanded);
+
+        // Thêm hoặc xóa class expanded cho container thương hiệu
+        if (brandContainerRef.current) {
+            if (!brandExpanded) {
+                brandContainerRef.current.classList.add('expanded');
+            } else {
+                brandContainerRef.current.classList.remove('expanded');
+            }
+        }
+    };
     return (
         <div className="product-filter-container">
             <div className="filter-header-wrapper">
-                <div className="filter-title">Tất cả sản phẩm</div>
             </div>
 
             <div className="filter-sections-wrapper">
                 <div className="filter-sections" ref={filterSectionsRef}>
                     <div className="filter-section-groups">
-                        <div className="filter-sections-brand">
+                        <div className="filter-sections-brand" ref={brandSectionRef}>
+                            {/* Nút mũi tên trái xuất hiện khi supplierExpanded = true */}
+                            {showLeftArrow && (
+                                <button className="left-arrow-button" onClick={handleLeftArrowClick}>
+                                    <div className="arrow-icon-wrapper">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path d="M15.5 17L9.5 11L15.5 5"
+                                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            )}
                             <div className="filter-section">
                                 <div className="section-label">Thương hiệu</div>
                                 <div className="filter-options-wrapper">
