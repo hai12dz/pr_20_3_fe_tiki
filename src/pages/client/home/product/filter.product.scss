@@ -5,16 +5,26 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #38383D;
 
-    .filter-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    .filter-header-wrapper {
+        padding: 8px 0;
 
         .filter-title {
             font-size: 20px;
             font-weight: 500;
             color: #27272A;
         }
+    }
+
+    .filter-sections-wrapper {
+        position: relative;
+    }
+
+    .filter-header {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
 
         .filter-button {
             display: flex;
@@ -26,6 +36,7 @@
             color: #38383D;
             font-size: 14px;
             cursor: pointer;
+            background: #fff;
 
             svg {
                 width: 16px;
@@ -37,22 +48,28 @@
 
     .filter-sections {
         display: flex;
-        gap: 32px;
-        margin-bottom: 16px;
+        position: relative;
+        overflow: visible;
         border-bottom: 1px solid #f1f1f1;
         padding-bottom: 16px;
+        margin-bottom: 16px;
+    }
+
+    .filter-section-groups {
+        display: flex;
+        gap: 32px;
+        max-width: calc(100% - 100px); // Leave space for the "Tất cả" button
+    }
+
+    .filter-sections-brand {
         position: relative;
-        overflow: hidden; // Cho phép toàn bộ phần filter hiển thị đầy đủ
+        overflow: hidden;
+
     }
 
     .filter-sections-supplier {
-        display: flex;
-        gap: 32px;
-        margin-bottom: 16px;
-        border-bottom: 1px solid #f1f1f1;
-        padding-bottom: 16px;
         position: relative;
-        overflow: visible; // Cho phép toàn bộ phần filter hiển thị đầy đủ
+        overflow: visible
     }
 
     .filter-section {
@@ -67,58 +84,42 @@
             display: flex;
             align-items: center;
             position: relative;
-
-            &::after {
-                content: "";
-                position: absolute;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                width: 40px;
-                background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-                pointer-events: none;
-            }
         }
 
         .expand-button {
             transition: transform 0.3s ease;
             margin-left: 10px;
-            /* Add margin to create space */
             position: relative;
-            /* Change from absolute to relative */
-            right: auto;
-            /* Remove the absolute positioning */
             z-index: 2;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            /* Sửa SVG thương hiệu luôn hướng xuống dưới */
-            svg path {
-                d: path("M9.5 5L15.5 11L9.5 17") !important;
+            svg {
                 transform: rotate(90deg);
-                transform-origin: center;
-                display: block;
+                color: #808089;
             }
         }
 
-        .filter-options-container {
+        .brand-options-container {
             transition: transform 0.3s ease;
             will-change: transform;
-            width: calc(100% - 50px);
-            /* Adjust width to account for the button's new position */
             position: relative;
-            overflow: visible;
+            overflow: hidden;
         }
 
         .supplier-options-container {
             transition: transform 0.3s ease;
             will-change: transform;
-            width: calc(100% - 50px);
             position: relative;
             overflow: hidden;
 
             /* Tạo hiệu ứng che "infobook" */
             .filter-options {
                 width: 90%;
-                /* Giảm chiều rộng để che phần tử cuối */
                 overflow: hidden;
 
                 /* Thêm gradient để làm mờ phần cuối */
@@ -189,12 +190,8 @@
             cursor: pointer;
             transition: all 0.2s;
             color: #808089;
-            position: absolute;
-            /* Keep this absolute */
-            right: 0;
-            z-index: 2;
             margin-left: 10px;
-            /* Add margin here too for consistency */
+            z-index: 2;
 
             &:hover {
                 background-color: #f5f5f5;
@@ -211,16 +208,9 @@
                     color: #808089;
                 }
             }
-
-            svg {
-                width: 16px;
-                height: 16px;
-                color: #808089;
-            }
         }
     }
 
-    /* Các phần CSS còn lại giữ nguyên */
     .filter-options-row {
         display: flex;
         align-items: center;
@@ -324,6 +314,18 @@
         .filter-sections {
             flex-direction: column;
             gap: 16px;
+        }
+
+        .filter-section-groups {
+            flex-direction: column;
+            gap: 16px;
+            max-width: 100%;
+        }
+
+        .filter-header {
+            position: relative;
+            margin-top: 16px;
+            transform: none;
         }
 
         .filter-options-row {

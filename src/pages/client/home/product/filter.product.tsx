@@ -24,23 +24,24 @@ const ProductFilter: React.FC = () => {
         setSupplierExpanded(!supplierExpanded);
     };
 
-    const brandExpandButtonRef = useRef<HTMLButtonElement>(null); // Tham chiếu nút SVG Brand
+    const brandExpandButtonRef = useRef<HTMLButtonElement>(null);
+    const filterHeaderRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (brandContainerRef.current && supplierContainerRef.current && brandExpandButtonRef.current) {
             if (supplierExpanded) {
                 brandContainerRef.current.style.transform = 'translateX(-150px)';
                 supplierContainerRef.current.style.transform = 'translateX(-150px)';
-                brandExpandButtonRef.current.style.transform = 'translateX(-150px)'; // Di chuyển SVG cùng Brand
+                brandExpandButtonRef.current.style.transform = 'translateX(-150px)';
 
-                // Thêm class expanded khi mở rộng
+                // Add expanded class when expanded
                 supplierContainerRef.current.classList.add('expanded');
             } else {
                 brandContainerRef.current.style.transform = 'translateX(0)';
                 supplierContainerRef.current.style.transform = 'translateX(0)';
-                brandExpandButtonRef.current.style.transform = 'translateX(0)'; // Đưa SVG về vị trí ban đầu
+                brandExpandButtonRef.current.style.transform = 'translateX(0)';
 
-                // Xóa class expanded khi thu nhỏ
+                // Remove expanded class when collapsed
                 if (supplierContainerRef.current.classList.contains('expanded')) {
                     supplierContainerRef.current.classList.remove('expanded');
                 }
@@ -50,60 +51,69 @@ const ProductFilter: React.FC = () => {
 
     return (
         <div className="product-filter-container">
-            <div className="filter-sections" ref={filterSectionsRef}>
-                <div className="filter-sections-brand">
-                    <div className="filter-section">
-                        <div className="section-label">Thương hiệu</div>
-                        <div className="filter-options-wrapper">
-                            <div ref={brandContainerRef} className="brand-options-container">
-                                <div className="filter-options">
-                                    {(brandExpanded ? brandsFull : brands).map((brand, index) => (
-                                        <button key={index} className="option-chip">
-                                            {brand}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                            <button ref={brandExpandButtonRef} className="expand-button" onClick={handleBrandToggle}>
-                                <svg width="16" height="16" viewBox="0 0 24 24">
-                                    <path d={brandExpanded ? "M15.5 11L9.5 17L3.5 11" : "M9.5 17L15.5 11L9.5 5"}
-                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div className="filter-header-wrapper">
+                <div className="filter-title">Tất cả sản phẩm</div>
+            </div>
 
-                <div className="filter-sections-supplier">
-                    <div className="filter-section">
-                        <div className="section-label">Nhà cung cấp</div>
-                        <div className="filter-options-wrapper">
-                            <div ref={supplierContainerRef} className="supplier-options-container">
-                                <div className="filter-options">
-                                    {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
-                                        <button key={index} className="option-chip">
-                                            {supplier}
-                                        </button>
-                                    ))}
+            <div className="filter-sections-wrapper">
+                <div className="filter-sections" ref={filterSectionsRef}>
+                    <div className="filter-section-groups">
+                        <div className="filter-sections-brand">
+                            <div className="filter-section">
+                                <div className="section-label">Thương hiệu</div>
+                                <div className="filter-options-wrapper">
+                                    <div ref={brandContainerRef} className="brand-options-container">
+                                        <div className="filter-options">
+                                            {(brandExpanded ? brandsFull : brands).map((brand, index) => (
+                                                <button key={index} className="option-chip">
+                                                    {brand}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button ref={brandExpandButtonRef} className="expand-button" onClick={handleBrandToggle}>
+                                        <svg width="16" height="16" viewBox="0 0 24 24">
+                                            <path d={brandExpanded ? "M15.5 11L9.5 17L3.5 11" : "M9.5 17L15.5 11L9.5 5"}
+                                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
-                            <button className="arrow-button" onClick={handleSupplierToggle}>
-                                <div className="arrow-icon-wrapper">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                        <path d={supplierExpanded ? "M15.5 11L9.5 17L3.5 11" : "M9.5 17L15.5 11L9.5 5"}
-                                            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
+                        </div>
+
+                        <div className="filter-sections-supplier">
+                            <div className="filter-section">
+                                <div className="section-label">Nhà cung cấp</div>
+                                <div className="filter-options-wrapper">
+                                    <div ref={supplierContainerRef} className="supplier-options-container">
+                                        <div className="filter-options">
+                                            {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
+                                                <button key={index} className="option-chip">
+                                                    {supplier}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button className="arrow-button" onClick={handleSupplierToggle}>
+                                        <div className="arrow-icon-wrapper">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                                <path d={supplierExpanded ? "M15.5 11L9.5 17L3.5 11" : "M9.5 17L15.5 11L9.5 5"}
+                                                    stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </div>
+                                    </button>
                                 </div>
-                            </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="filter-header">
-                    <div className="filter-button">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M18 4H6C5.4 4 5 4.4 5 5V6.6C5 7.3 5.3 7.9 5.7 8.3L10 12.4V19C10 19.4 10.2 19.7 10.6 19.9L12.6 20.9C13.2 21.2 14 20.8 14 20.1V12.4L18.3 8.3C18.7 7.9 19 7.3 19 6.6V5C19 4.4 18.6 4 18 4Z" fill="currentColor" />
-                        </svg>
-                        <span>Tất cả</span>
+
+                    <div className="filter-header" ref={filterHeaderRef}>
+                        <div className="filter-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 4H6C5.4 4 5 4.4 5 5V6.6C5 7.3 5.3 7.9 5.7 8.3L10 12.4V19C10 19.4 10.2 19.7 10.6 19.9L12.6 20.9C13.2 21.2 14 20.8 14 20.1V12.4L18.3 8.3C18.7 7.9 19 7.3 19 6.6V5C19 4.4 18.6 4 18 4Z" fill="currentColor" />
+                            </svg>
+                            <span>Tất cả</span>
+                        </div>
                     </div>
                 </div>
             </div>
