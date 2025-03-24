@@ -2,15 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import './filter.product.scss';
 
 const ProductFilter: React.FC = () => {
-    const [isExpanded, setIsExpanded] = useState(false);
     const [brandExpanded, setBrandExpanded] = useState(false);
     const [supplierExpanded, setSupplierExpanded] = useState(false);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
 
-    const brandContainerRef = useRef<HTMLDivElement>(null);
-    const supplierContainerRef = useRef<HTMLDivElement>(null);
-    const filterSectionsRef = useRef<HTMLDivElement>(null);
-    const brandSectionRef = useRef<HTMLDivElement>(null);
+    // Single ref for the main container
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
@@ -20,101 +17,45 @@ const ProductFilter: React.FC = () => {
 
     const handleSupplierToggle = () => {
         setSupplierExpanded(!supplierExpanded);
-
-        // Ensure the left arrow button visibility is toggled correctly
         setShowLeftArrow(!supplierExpanded);
-
-        // Add or remove the expanded class for supplier container
-        if (supplierContainerRef.current) {
-            if (!supplierExpanded) {
-                supplierContainerRef.current.classList.add('expanded');
-            } else {
-                supplierContainerRef.current.classList.remove('expanded');
-            }
-        }
     };
 
     const handleLeftArrowClick = () => {
-        // Khi nhấn vào mũi tên bên trái, đưa về trạng thái mặc định
         setSupplierExpanded(false);
         setShowLeftArrow(false);
     };
 
-    const brandExpandButtonRef = useRef<HTMLButtonElement>(null);
-    const filterHeaderRef = useRef<HTMLDivElement>(null);
-    // Thêm vào useEffect hoặc thay đổi useEffect hiện tại
+    const handleBrandToggle = () => {
+        setBrandExpanded(!brandExpanded);
+    };
+
+    // Using a single useEffect to handle container transformations
     useEffect(() => {
-        if (brandContainerRef.current && supplierContainerRef.current && brandExpandButtonRef.current && brandSectionRef.current && filterHeaderRef.current) {
+        if (containerRef.current) {
             if (supplierExpanded) {
-                // When supplier is expanded
-                brandContainerRef.current.style.transform = 'translateX(-80px)'; // Increased offset
-                supplierContainerRef.current.style.transform = 'translateX(-80px)'; // Increased offset
-                brandExpandButtonRef.current.style.transform = 'translateX(-80px)'; // Increased offset
-                brandSectionRef.current.style.transform = 'translateX(-80px)'; // Increased offset
-
-                // Adjust left arrow position to align with "Thiên Long"
-                if (brandSectionRef.current) {
-                    const brandSectionRect = brandSectionRef.current.getBoundingClientRect();
-                    const leftArrowButton = document.querySelector('.left-arrow-button') as HTMLElement;
-                    if (leftArrowButton) {
-                        leftArrowButton.style.top = `${brandSectionRect.top + 40}px`; // Adjust dynamically
-                    }
-                }
-
-                // Lower z-index of filter header to avoid overlap
-                filterHeaderRef.current.style.zIndex = '1';
-
-                // Add expanded class to supplier container
-                supplierContainerRef.current.classList.add('expanded');
-
-                // Ensure the left arrow button is visible
+                // When supplier is expanded, shift the whole container left
+                containerRef.current.style.transform = 'translateX(-80px)';
                 setShowLeftArrow(true);
             } else {
-                // Reset transforms
-                brandContainerRef.current.style.transform = 'translateX(0)';
-                supplierContainerRef.current.style.transform = 'translateX(0)';
-                brandExpandButtonRef.current.style.transform = 'translateX(0)';
-                brandSectionRef.current.style.transform = 'translateX(0)';
-
-                // Reset filter header z-index
-                filterHeaderRef.current.style.zIndex = '5';
-
-                // Remove expanded class
-                supplierContainerRef.current.classList.remove('expanded');
-
-                // Hide the left arrow button
+                // Reset transform when collapsed
+                containerRef.current.style.transform = 'translateX(0)';
                 setShowLeftArrow(false);
             }
         }
     }, [supplierExpanded]);
-    // Thêm vào handleBrandToggle
-    const handleBrandToggle = () => {
-        setBrandExpanded(!brandExpanded);
 
-        // Thêm hoặc xóa class expanded cho container thương hiệu
-        if (brandContainerRef.current) {
-            if (!brandExpanded) {
-                brandContainerRef.current.classList.add('expanded');
-            } else {
-                brandContainerRef.current.classList.remove('expanded');
-            }
-        }
-    };
     return (
         <div className="product-filter-container">
-            <div className="filter-header-wrapper">
-            </div>
-
             <div className="filter-sections-wrapper">
-                <div className="filter-sections" ref={filterSectionsRef}>
+                {/* Main container with single ref */}
+                <div className="filter-sections" ref={containerRef}>
                     <div className="filter-section-groups">
-                        <div className="filter-sections-brand" ref={brandSectionRef}>
-                            {/* Nút mũi tên trái xuất hiện khi supplierExpanded = true */}
+                        <div className="filter-sections-brand">
+                            {/* Left arrow button */}
                             {showLeftArrow && (
                                 <button
                                     className="left-arrow-button"
                                     onClick={handleLeftArrowClick}
-                                    style={{ position: 'absolute', left: '0', zIndex: 15 }}
                                 >
                                     <div className="arrow-icon-wrapper">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -127,7 +68,7 @@ const ProductFilter: React.FC = () => {
                             <div className="filter-section">
                                 <div className="section-label">Thương hiệu</div>
                                 <div className="filter-options-wrapper">
-                                    <div ref={brandContainerRef} className="brand-options-container">
+                                    <div className="brand-options-container">
                                         <div className="filter-options">
                                             {(brandExpanded ? brandsFull : brands).map((brand, index) => (
                                                 <button key={index} className="option-chip">
@@ -136,7 +77,7 @@ const ProductFilter: React.FC = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    <button ref={brandExpandButtonRef} className="expand-button" onClick={handleBrandToggle}>
+                                    <button className="expand-button" onClick={handleBrandToggle}>
                                         <svg width="16" height="16" viewBox="0 0 24 24">
                                             <path d={brandExpanded ? "M15.5 11L9.5 17L3.5 11" : "M9.5 17L15.5 11L9.5 5"}
                                                 stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -150,7 +91,7 @@ const ProductFilter: React.FC = () => {
                             <div className="filter-section">
                                 <div className="section-label">Nhà cung cấp</div>
                                 <div className="filter-options-wrapper">
-                                    <div ref={supplierContainerRef} className="supplier-options-container">
+                                    <div className="supplier-options-container">
                                         <div className="filter-options">
                                             {(supplierExpanded ? suppliersFull : suppliers).map((supplier, index) => (
                                                 <button key={index} className="option-chip">
@@ -172,13 +113,14 @@ const ProductFilter: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="filter-header" ref={filterHeaderRef}>
-                        <div className="filter-button">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 4H6C5.4 4 5 4.4 5 5V6.6C5 7.3 5.3 7.9 5.7 8.3L10 12.4V19C10 19.4 10.2 19.7 10.6 19.9L12.6 20.9C13.2 21.2 14 20.8 14 20.1V12.4L18.3 8.3C18.7 7.9 19 7.3 19 6.6V5C19 4.4 18.6 4 18 4Z" fill="currentColor" />
-                            </svg>
-                            <span>Tất cả</span>
-                        </div>
+
+                </div>
+                <div className="filter-header">
+                    <div className="filter-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 4H6C5.4 4 5 4.4 5 5V6.6C5 7.3 5.3 7.9 5.7 8.3L10 12.4V19C10 19.4 10.2 19.7 10.6 19.9L12.6 20.9C13.2 21.2 14 20.8 14 20.1V12.4L18.3 8.3C18.7 7.9 19 7.3 19 6.6V5C19 4.4 18.6 4 18 4Z" fill="currentColor" />
+                        </svg>
+                        <span>Tất cả</span>
                     </div>
                 </div>
             </div>
