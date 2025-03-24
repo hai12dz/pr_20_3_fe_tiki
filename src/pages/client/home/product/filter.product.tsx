@@ -120,19 +120,26 @@ const ProductFilter: React.FC = () => {
                 </div>
                 <div className="filter-header">
                     <div className="filter-button">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M18 4H6C5.4 4 5 4.4 5 5V6.6C5 7.3 5.3 7.9 5.7 8.3L10 12.4V19C10 19.4 10.2 19.7 10.6 19.9L12.6 20.9C13.2 21.2 14 20.8 14 20.1V12.4L18.3 8.3C18.7 7.9 19 7.3 19 6.6V5C19 4.4 18.6 4 18 4Z" fill="currentColor" />
-                        </svg>
+                        <img
+                            src="https://salt.tikicdn.com/ts/upload/3f/23/35/2d29fcaea0d10cbb85ce5b0d4cd20add.png"
+                            alt="filters"
+                            className="filter-icon"
+                        />
                         <span>Tất cả</span>
                     </div>
                 </div>
+
             </div>
 
             <div className="filter-options-row">
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
-                        <span className="now-tag">NOW</span>
+                        <img
+                            src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                            alt="Giao siêu tốc 2H"
+                            className="now-tag"
+                        />
                         <span className="option-text">Giao siêu tốc 2H</span>
                     </div>
                 </label>
@@ -140,12 +147,11 @@ const ProductFilter: React.FC = () => {
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
-                        <span className="deal-tag">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 18.5C11.8 18.5 11.6 18.4 11.4 18.3L9.9 17.2C6.6 14.7 2 11.2 2 7C2 4 4.2 1.5 7 1.5C8.4 1.5 9.8 2.1 11 3C12.2 2 13.6 1.5 15 1.5C17.8 1.5 20 4 20 7C20 11.3 15.4 14.7 12.1 17.2L10.6 18.3C10.4 18.4 10.2 18.5 10 18.5H12Z" fill="#FF424F" />
-                            </svg>
-                            TOP DEAL
-                        </span>
+                        <img
+                            src="https://salt.tikicdn.com/ts/upload/b5/aa/48/2305c5e08e536cfb840043df12818146.png"
+                            alt="Siêu rẻ"
+                            className="deal-tag"
+                        />
                         <span className="option-text">Siêu rẻ</span>
                     </div>
                 </label>
@@ -153,30 +159,28 @@ const ProductFilter: React.FC = () => {
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
-                        <span className="freeship-tag">FREESHIP XTRA</span>
+                        <img
+                            src="https://salt.tikicdn.com/ts/upload/2f/20/77/0f96cfafdf7855d5e7fe076dd4f34ce0.png"
+                            alt="FREESHIP XTRA"
+                            className="freeship-tag"
+                        />
                     </div>
                 </label>
 
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
-                        <span className="star-rating">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                            </svg>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                            </svg>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                            </svg>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
-                                <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
-                            </svg>
-                        </span>
+                        <div className="star-rating">
+                            {[...Array(4)].map((_, index) => (
+                                <svg key={index} width="14" height="14" viewBox="0 0 24 24" fill="#FFC400">
+                                    <path d="M12 17.8L5.8 21.2L7.3 14.3L2 9.6L9.2 8.7L12 2.5L14.8 8.7L22 9.6L16.7 14.3L18.2 21.2L12 17.8Z" />
+                                </svg>
+                            ))}
+                        </div>
                         <span className="option-text">từ 4 sao</span>
                     </div>
                 </label>
+
 
                 <div className="sort">
                     <span className="sort-label">Sắp xếp</span>

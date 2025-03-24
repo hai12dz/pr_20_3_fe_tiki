@@ -49,22 +49,31 @@
 
         .filter-button {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 4px;
-            border: 1px solid #121111; // Darker border color
-            color: #38383D;
+            justify-content: center; // Căn giữa theo chiều ngang
+            align-items: center; // Căn giữa theo chiều dọc
+            position: relative;
+            background: none;
             font-size: 14px;
-            cursor: pointer;
-            background: #fff;
+            line-height: 21px;
+            color: rgb(39, 39, 42);
+            padding: 6px 12px;
+            align-self: flex-end; // Căn phần tử về cuối trong container cha
+            border: 1px solid rgb(221, 221, 227);
+            border-radius: 4px;
+            gap: 8px; // Khoảng cách giữa các phần tử con (icon, text)
 
-            svg {
-                width: 16px;
-                height: 16px;
-                color: #808089;
+            // Định dạng icon
+            .filter-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            // Hover effect
+            &:hover {
+                background-color: rgba(221, 221, 227, 0.2);
             }
         }
+
     }
 
     .filter-sections {
@@ -384,7 +393,9 @@
         gap: 24px;
         padding: 8px 0;
         position: relative;
-
+        font-size: 14px;
+        line-height: 21px;
+        font-family: 'Inter', Helvetica, Arial, sans-serif;
 
 
 
@@ -416,28 +427,32 @@
         }
 
         .now-tag {
-            color: #FF424F;
-            font-weight: 700;
+            height: 17px; // Đảm bảo kích thước ảnh giống với ảnh mẫu
+            width: auto; // Giữ nguyên tỷ lệ khung hình
         }
 
         .deal-tag {
-            color: #FF424F;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            font-weight: 500;
+            height: 16px; // Đặt kích thước icon giống mẫu
+            width: auto; // Giữ nguyên tỷ lệ ảnh
         }
 
         .freeship-tag {
-            color: #0B74E5;
-            font-weight: 500;
+            height: 16px; // Đảm bảo icon có chiều cao chuẩn
+            width: auto; // Giữ nguyên tỷ lệ ảnh
         }
 
         .star-rating {
             display: flex;
             align-items: center;
             gap: 2px;
+
+            svg {
+                height: 16px; // Đảm bảo icon có chiều cao chuẩn
+                width: 16px; // Giữ nguyên tỷ lệ ảnh
+                flex-shrink: 0; // Đảm bảo không bị co lại
+            }
         }
+
 
         .option-text {
             font-size: 13px;
@@ -503,15 +518,26 @@
         }
 
         .filter-options-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
+            display: flex;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+            font-size: 14px !important;
+            line-height: 21px !important;
+            font-family: 'Inter, Helvetica, Arial, sans-serif';
+
+            width: 100% !important;
 
             .sort {
-                margin-left: 0;
+                margin-left: 0 !important;
+                width: 100% !important;
+                display: flex;
+                justify-content: space-between !important;
+                margin-top: 8px !important;
+            }
+
+            .option {
                 width: 100%;
-                justify-content: space-between;
-                margin-top: 8px;
             }
         }
     }
