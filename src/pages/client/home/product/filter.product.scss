@@ -121,23 +121,9 @@
             .filter-options {
                 position: relative;
 
+                // Completely remove the gradient effect
                 &::after {
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    width: 50px;
-                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
-                    pointer-events: none;
-                    z-index: 3;
-                    opacity: 0.9; // Ensure gradient is clearly visible
-                }
-
-                // Ensure no fade effect on last button
-                .option-chip:last-child {
-                    opacity: 1 !important;
-                    filter: none !important;
+                    display: none; // Disable the gradient effect entirely
                 }
             }
 
@@ -156,25 +142,19 @@
             transition: transform 0.3s ease;
             will-change: transform;
             position: relative;
+            z-index: 1;
+
+            .filter-options {
+                width: 100%; // Ensure full width for all buttons
+
+                // Completely remove the gradient effect
+                &::after {
+                    display: none; // Disable the gradient effect entirely
+                }
+            }
 
             &.expanded {
                 transform: translateX(-60px); // Ensure smooth expansion
-            }
-
-            .filter-options {
-                width: 90%;
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    width: 50px;
-                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
-                    pointer-events: none;
-                    z-index: 3;
-                }
             }
         }
     }
@@ -305,7 +285,7 @@
             .option-chip:nth-child(2) {
                 opacity: 1;
                 position: relative;
-                z-index: 4; // Make sure it appears above gradient
+                z-index: auto;
             }
         }
 
