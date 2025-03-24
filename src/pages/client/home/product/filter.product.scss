@@ -7,6 +7,48 @@
     position: relative;
     overflow: hidden;
 
+    // Add this rule to target the left-arrow-button directly
+    .left-arrow-button {
+        position: absolute !important;
+        top: 80% !important;
+        left: -40px !important;
+        transform: translateY(-50%) !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        background: white !important;
+        border: 1px solid #D8D8D8 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        z-index: 9999 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    // Specific selector to override any other styles
+    >.left-arrow-button {
+        position: fixed !important; // Use fixed instead of absolute
+        top: 345px !important; // Set a specific position from top
+        left: 350px !important; // Set a specific position from left
+        transform: none !important; // Remove transform that might be affecting position
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        background: white !important;
+        border: 1px solid #D8D8D8 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        z-index: 9999 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
     .filter-header-wrapper {
         padding: 8px 0;
 
@@ -166,57 +208,15 @@
         z-index: 6; // Ensure it appears above other elements
         padding-left: 0; // Remove the left padding so it aligns with content below
 
-        .left-arrow-button {
-            position: absolute;
-            left: 0px; // Adjust position to align properly
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 32px;
-            height: 32px;
-            border: 1px solid #D8D8D8; // Darker border color
-            border-radius: 50%;
-            background-color: #fff;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #808089;
-            z-index: 15; // Ensure visibility above other elements
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
-            &:hover {
-                background-color: #f5f5f5;
-            }
+    }
 
-            .arrow-icon-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                svg {
-                    width: 16px;
-                    height: 16px;
-                    color: #808089;
-                }
-            }
-        }
-
-        .brand-options-container {
-            transition: transform 0.3s ease;
-            will-change: transform;
-            position: relative;
-            overflow: visible;
-
-            .filter-options {
-                position: relative;
-
-                // Completely remove the gradient effect
-
-            }
-
-
-        }
+    // Add this to ensure the button shows in translated state
+    .filter-sections.translated .left-arrow-button {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        left: -40px !important; // Position it correctly when translated
     }
 
     .filter-sections-supplier {
@@ -500,7 +500,6 @@
         }
     }
 }
-
 
 // Responsive adjustments
 @media (max-width: 768px) {

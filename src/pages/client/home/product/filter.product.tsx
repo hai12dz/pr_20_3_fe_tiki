@@ -47,25 +47,26 @@ const ProductFilter: React.FC = () => {
 
     return (
         <div className="product-filter-container">
+            {/* Independent left arrow button outside the main container */}
+            {showLeftArrow && (
+                <button
+                    className="left-arrow-button"
+                    onClick={handleLeftArrowClick}
+                >
+                    <div className="arrow-icon-wrapper">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M15.5 17L9.5 11L15.5 5"
+                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </div>
+                </button>
+            )}
+
             <div className="filter-sections-wrapper">
                 {/* Main container with single ref - Make sure the vertical divider is inside this container */}
                 <div className="filter-sections" ref={containerRef}>
                     <div className="filter-section-groups">
                         <div className="filter-sections-brand">
-                            {/* Left arrow button */}
-                            {showLeftArrow && (
-                                <button
-                                    className="left-arrow-button"
-                                    onClick={handleLeftArrowClick}
-                                >
-                                    <div className="arrow-icon-wrapper">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M15.5 17L9.5 11L15.5 5"
-                                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </div>
-                                </button>
-                            )}
                             <div className="filter-section">
                                 <div className="section-label">Thương hiệu</div>
                                 <div className="filter-options-wrapper">
