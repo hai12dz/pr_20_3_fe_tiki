@@ -48,7 +48,7 @@ const ProductFilter: React.FC = () => {
     return (
         <div className="product-filter-container">
             <div className="filter-sections-wrapper">
-                {/* Main container with single ref */}
+                {/* Main container with single ref - Make sure the vertical divider is inside this container */}
                 <div className="filter-sections" ref={containerRef}>
                     <div className="filter-section-groups">
                         <div className="filter-sections-brand">
@@ -92,6 +92,9 @@ const ProductFilter: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* Vertical divider with visible character */}
+                        <div className="vertical-divider">|</div>
+
                         <div className="filter-sections-supplier">
                             <div className="filter-section">
                                 <div className="section-label">Nhà cung cấp</div>
@@ -117,8 +120,6 @@ const ProductFilter: React.FC = () => {
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <div className="filter-header">
                     <div className="filter-button">
