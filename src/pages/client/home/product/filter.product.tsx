@@ -49,17 +49,13 @@ const ProductFilter: React.FC = () => {
         <div className="product-filter-container">
             {/* Independent left arrow button outside the main container */}
             {showLeftArrow && (
-                <button
-                    className="left-arrow-button"
-                    onClick={handleLeftArrowClick}
-                >
-                    <div className="arrow-icon-wrapper">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M15.5 17L9.5 11L15.5 5"
-                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </button>
+
+                <div onClick={handleLeftArrowClick} className="left-arrow-button arrow-icon-wrapper">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15.5 17L9.5 11L15.5 5"
+                            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </div>
             )}
 
             <div className="filter-sections-wrapper">
