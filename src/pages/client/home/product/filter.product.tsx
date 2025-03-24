@@ -29,16 +29,17 @@ const ProductFilter: React.FC = () => {
         setBrandExpanded(!brandExpanded);
     };
 
-    // Using a single useEffect to handle container transformations
     useEffect(() => {
         if (containerRef.current) {
             if (supplierExpanded) {
                 // When supplier is expanded, shift the whole container left
                 containerRef.current.style.transform = 'translateX(-80px)';
+                containerRef.current.classList.add('translated'); // Add class to help with CSS targeting
                 setShowLeftArrow(true);
             } else {
                 // Reset transform when collapsed
                 containerRef.current.style.transform = 'translateX(0)';
+                containerRef.current.classList.remove('translated'); // Remove class when not translated
                 setShowLeftArrow(false);
             }
         }
@@ -79,8 +80,12 @@ const ProductFilter: React.FC = () => {
                                     </div>
                                     <button className="expand-button" onClick={handleBrandToggle}>
                                         <svg width="16" height="16" viewBox="0 0 24 24">
-                                            <path d={brandExpanded ? "M15.5 11L9.5 17L3.5 11" : "M9.5 17L15.5 11L9.5 5"}
-                                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d={brandExpanded ? "M15.5 11L9.5 17L3.5 11" : "M12 16.5L6 10.5L7.4 9.1L12 13.7L16.6 9.1L18 10.5L12 16.5Z"}
+                                                stroke={brandExpanded ? "currentColor" : undefined}
+                                                fill={brandExpanded ? "none" : "currentColor"}
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round" />
                                         </svg>
                                     </button>
                                 </div>

@@ -35,7 +35,7 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 4px;
-            border: 1px solid #EBEBF0;
+            border: 1px solid #121111; // Darker border color
             color: #38383D;
             font-size: 14px;
             cursor: pointer;
@@ -59,6 +59,35 @@
         margin-bottom: 16px;
         padding-left: 0; // Remove any left padding
         margin-left: 0; // Remove any left margin
+
+        &.translated {
+            .filter-sections-brand {
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 80px;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+                    pointer-events: none;
+                    z-index: 10;
+                    display: block; // Make sure it's displayed
+                }
+
+                .filter-options {
+
+                    // Add fade effect to first two buttons
+                    .option-chip:nth-child(1) {
+                        opacity: 0.6;
+                    }
+
+                    .option-chip:nth-child(2) {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
     }
 
     .filter-section-groups {
@@ -68,13 +97,11 @@
         padding-left: 0; // Ensure no left padding
         margin-left: 0; // Ensure no left margin
 
-
-
         // Add vertical divider between "Thương hiệu" and "Nhà cung cấp"
         >.filter-sections-brand {
             position: relative;
 
-            &::after {
+            &::before {
                 content: "";
                 position: absolute;
                 right: -16px; // Adjust spacing for the divider
@@ -105,7 +132,7 @@
             justify-content: center;
             min-width: 32px;
             height: 32px;
-            border: 1px solid #EBEBF0;
+            border: 1px solid #D8D8D8; // Darker border color
             border-radius: 50%;
             background-color: #fff;
             cursor: pointer;
@@ -141,14 +168,10 @@
                 position: relative;
 
                 // Completely remove the gradient effect
-                &::after {
-                    display: none; // Disable the gradient effect entirely
-                }
+
             }
 
-            &.expanded .filter-options::after {
-                display: none;
-            }
+
         }
     }
 
@@ -166,10 +189,7 @@
             .filter-options {
                 width: 100%; // Ensure full width for all buttons
 
-                // Completely remove the gradient effect
-                &::after {
-                    display: none; // Disable the gradient effect entirely
-                }
+
             }
 
             &.expanded {
@@ -197,16 +217,26 @@
             margin-left: 10px;
             position: relative;
             z-index: 7; // Increased z-index to appear above other elements
-            background: transparent;
-            border: none;
+            background: #fff;
+            border: 1px solid #D8D8D8;
+            border-radius: 50%; // Make it circular
+            min-width: 32px; // Set fixed width
+            height: 32px; // Set fixed height
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
 
+            &:hover {
+                background-color: #f5f5f5;
+                border-color: #C0C0C0; // Darker on hover
+            }
+
             svg {
-                transform: rotate(90deg);
+                width: 16px;
+                height: 16px;
                 color: #808089;
+                transform: none; // Remove rotation
             }
         }
 
@@ -216,25 +246,7 @@
             position: relative;
             overflow: visible;
 
-            .filter-options {
-                position: relative;
 
-                &::after {
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    width: 50px;
-                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
-                    pointer-events: none;
-                    z-index: 3;
-                }
-            }
-
-            &.expanded .filter-options::after {
-                display: none;
-            }
         }
 
         .supplier-options-container {
@@ -243,31 +255,13 @@
             position: relative;
             z-index: 1;
 
-            &.expanded {
-                .filter-options {
-                    width: 100%;
 
-                    &::after {
-                        display: none;
-                    }
-                }
-            }
 
-            /* Improved gradient effect */
+            /* Remove gradient effect */
             .filter-options {
                 width: 90%;
 
-                &::after {
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    width: 50px;
-                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
-                    pointer-events: none;
-                    z-index: 3;
-                }
+
             }
         }
 
@@ -282,7 +276,7 @@
             width: max-content;
 
             .option-chip {
-                border: 1px solid #EBEBF0;
+                border: 1px solid #D8D8D8; // Darker border color (previously #EBEBF0)
                 border-radius: 16px;
                 padding: 4px 12px;
                 font-size: 14px;
@@ -294,17 +288,32 @@
                 display: flex;
                 align-items: center;
                 white-space: nowrap;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); // Add subtle shadow for depth
 
                 &:hover {
                     background-color: #f5f5f5;
+                    border-color: #C0C0C0; // Even darker on hover
                 }
             }
 
             // Add specific styling for Thiên Long button to ensure it's visible
             .option-chip:nth-child(2) {
-                opacity: 1;
-                position: relative;
-                z-index: auto;
+
+                // Target Thiên Long specifically
+                &::before {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+                    pointer-events: none;
+                    z-index: 2;
+                    border-radius: 16px;
+                    display: none; // This is controlled by parent container's gradient
+                }
             }
         }
 
@@ -315,7 +324,7 @@
             justify-content: center;
             min-width: 32px;
             height: 32px;
-            border: 1px solid #EBEBF0;
+            border: 1px solid #D8D8D8; // Darker border color
             border-radius: 50%;
             background-color: #fff;
             cursor: pointer;
@@ -326,6 +335,7 @@
 
             &:hover {
                 background-color: #f5f5f5;
+                border-color: #C0C0C0; // Even darker on hover
             }
 
             .arrow-icon-wrapper {
@@ -350,7 +360,7 @@
         padding: 8px 0;
 
         // Add vertical dividers between options
-        >.option:not(:last-child)::after {
+        >.option:not(:last-child)::before {
             content: "";
             display: inline-block;
             width: 1px;
@@ -428,7 +438,7 @@
                 height: 32px;
                 padding: 0 12px;
                 border-radius: 4px;
-                border: 1px solid #EBEBF0;
+                border: 1px solid #D8D8D8; // Darker border color
                 background: white;
                 display: flex;
                 align-items: center;
@@ -440,6 +450,7 @@
 
                 &:hover {
                     background: #F5F5FA;
+                    border-color: #C0C0C0; // Even darker on hover
                 }
 
                 svg {
@@ -449,6 +460,7 @@
         }
     }
 }
+
 
 // Responsive adjustments
 @media (max-width: 768px) {
