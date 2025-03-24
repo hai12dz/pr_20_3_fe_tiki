@@ -4,8 +4,8 @@
     padding: 8px 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #38383D;
-    position: relative; // Thêm position relative cho container chính
-    overflow: hidden; // Thêm overflow hidden để cắt nội dung vượt quá
+    position: relative;
+    overflow: hidden;
 
     .filter-header-wrapper {
         padding: 8px 0;
@@ -19,6 +19,7 @@
 
     .filter-sections-wrapper {
         position: relative;
+        overflow: visible; // Changed from 'hidden' to 'visible'
     }
 
     .filter-header {
@@ -26,7 +27,7 @@
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        z-index: 10;
+        z-index: 3; // Lower z-index to ensure it does not overlap the "Nhà cung cấp" button
 
         .filter-button {
             display: flex;
@@ -51,29 +52,33 @@
     .filter-sections {
         display: flex;
         position: relative;
-        overflow: visible;
+        overflow: visible; // Changed from 'hidden' to 'visible'
         border-bottom: 1px solid #f1f1f1;
         padding-bottom: 16px;
         margin-bottom: 16px;
+        padding-left: 0; // Remove any left padding
+        margin-left: 0; // Remove any left margin
     }
 
     .filter-section-groups {
         display: flex;
         gap: 32px;
         max-width: calc(100% - 100px); // Leave space for the "Tất cả" button
+        padding-left: 0; // Ensure no left padding
+        margin-left: 0; // Ensure no left margin
     }
 
     .filter-sections-brand {
         position: relative;
-        overflow: hidden; // Changed from hidden to visible
-        transition: transform 0.3s ease; // Thêm transition cho mũi tên trái
+        overflow: visible;
+        transition: transform 0.3s ease;
         will-change: transform;
-        z-index: 1;
+        z-index: 6; // Ensure it appears above other elements
+        padding-left: 0; // Remove the left padding so it aligns with content below
 
-        // Thêm style cho mũi tên trái
         .left-arrow-button {
             position: absolute;
-            left: -40px; // Vị trí bên trái của phần Thương hiệu
+            left: -40px; // Align with the "Thiên Long" button
             top: 50%;
             transform: translateY(-50%);
             display: flex;
@@ -87,7 +92,8 @@
             cursor: pointer;
             transition: all 0.2s;
             color: #808089;
-            z-index: 5;
+            z-index: 15; // Ensure visibility above other elements
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
             &:hover {
                 background-color: #f5f5f5;
@@ -105,11 +111,72 @@
                 }
             }
         }
+
+        .brand-options-container {
+            transition: transform 0.3s ease;
+            will-change: transform;
+            position: relative;
+            overflow: visible;
+
+            .filter-options {
+                position: relative;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 50px;
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
+                    pointer-events: none;
+                    z-index: 3;
+                    opacity: 0.9; // Ensure gradient is clearly visible
+                }
+
+                // Ensure no fade effect on last button
+                .option-chip:last-child {
+                    opacity: 1 !important;
+                    filter: none !important;
+                }
+            }
+
+            &.expanded .filter-options::after {
+                display: none;
+            }
+        }
     }
 
     .filter-sections-supplier {
         position: relative;
-        overflow: visible
+        overflow: visible;
+        z-index: 5; // Ensure it appears above the filter header
+
+        .supplier-options-container {
+            transition: transform 0.3s ease;
+            will-change: transform;
+            position: relative;
+
+            &.expanded {
+                transform: translateX(-60px); // Ensure smooth expansion
+            }
+
+            .filter-options {
+                width: 90%;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 50px;
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
+                    pointer-events: none;
+                    z-index: 3;
+                }
+            }
+        }
     }
 
     .filter-section {
@@ -130,7 +197,7 @@
             transition: transform 0.3s ease;
             margin-left: 10px;
             position: relative;
-            z-index: 2;
+            z-index: 7; // Increased z-index to appear above other elements
             background: transparent;
             border: none;
             cursor: pointer;
@@ -148,19 +215,10 @@
             transition: transform 0.3s ease;
             will-change: transform;
             position: relative;
-            overflow: visible; // Thay đổi từ hidden sang visible để không cắt "Hồng Hà"
-        }
+            overflow: visible;
 
-        .supplier-options-container {
-            transition: transform 0.3s ease;
-            will-change: transform;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-
-            /* Tạo hiệu ứng che "infobook" */
             .filter-options {
-                width: 100%; // Changed from 90%
+                position: relative;
 
                 &::after {
                     content: "";
@@ -168,14 +226,24 @@
                     right: 0;
                     top: 0;
                     bottom: 0;
-                    width: 40px; // Reduced from 60px
-                    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+                    width: 50px;
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
                     pointer-events: none;
                     z-index: 3;
                 }
             }
 
-            /* Khi mở rộng, hiển thị toàn bộ và bỏ hiệu ứng mờ */
+            &.expanded .filter-options::after {
+                display: none;
+            }
+        }
+
+        .supplier-options-container {
+            transition: transform 0.3s ease;
+            will-change: transform;
+            position: relative;
+            z-index: 1;
+
             &.expanded {
                 .filter-options {
                     width: 100%;
@@ -183,6 +251,23 @@
                     &::after {
                         display: none;
                     }
+                }
+            }
+
+            /* Improved gradient effect */
+            .filter-options {
+                width: 90%;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 50px;
+                    background: linear-gradient(to left, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
+                    pointer-events: none;
+                    z-index: 3;
                 }
             }
         }
@@ -215,9 +300,17 @@
                     background-color: #f5f5f5;
                 }
             }
+
+            // Add specific styling for Thiên Long button to ensure it's visible
+            .option-chip:nth-child(2) {
+                opacity: 1;
+                position: relative;
+                z-index: 4; // Make sure it appears above gradient
+            }
         }
 
         .arrow-button {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -230,7 +323,7 @@
             transition: all 0.2s;
             color: #808089;
             margin-left: 10px;
-            z-index: 2;
+            z-index: 5; // Increased z-index
 
             &:hover {
                 background-color: #f5f5f5;
