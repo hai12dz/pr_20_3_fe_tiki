@@ -5,9 +5,7 @@
     font-family: 'Inter, Helvetica, Arial, sans-serif';
     color: #38383D;
     position: relative;
-    overflow: hidden;
-
-
+    overflow: visible; // Ensure the modal is not clipped
 
     // Specific selector to override any other styles
     >.left-arrow-button {
@@ -37,7 +35,7 @@
 
     .filter-sections-wrapper {
         position: relative;
-        overflow: hidden; // Changed to 'hidden' to hide content that overflows during transition
+        overflow: visible; // Remove 'hidden' to allow the modal to display properly
     }
 
     .filter-header {
@@ -328,6 +326,12 @@
                     background-color: #f5f5f5;
                     border-color: #C0C0C0; // Even darker on hover
                 }
+
+                &.selected {
+                    border-color: #0B74E5;
+                    color: #0B74E5;
+                    background-color: #EBF5FF;
+                }
             }
 
             // Add specific styling for Thiên Long button to ensure it's visible
@@ -382,6 +386,139 @@
                     height: 16px;
                     color: #808089;
                 }
+            }
+        }
+    }
+
+    // Brand Selection Modal Styles - Add after filter options
+    .brand-selection-modal {
+        position: absolute;
+        z-index: 9999; // Ensure the modal is on top of all other elements
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid #E0E0E0;
+        padding: 16px;
+
+        .brand-selection-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand-selection-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-height: 300px; // Limit height
+            overflow-y: auto;
+
+            .brand-selection-chip {
+                border: 1px solid #D8D8D8;
+                border-radius: 16px;
+                padding: 8px 16px;
+                font-size: 14px;
+                background-color: white;
+                cursor: pointer;
+
+                &.selected {
+                    border-color: #0B74E5;
+                    color: #0B74E5;
+                    background-color: #EBF5FF;
+                }
+            }
+        }
+
+        .brand-selection-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+
+            .reset-button,
+            .apply-button {
+                flex: 1;
+                padding: 10px;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .reset-button {
+                background-color: white;
+                border: 1px solid #D8D8D8;
+                color: #38383D;
+            }
+
+            .apply-button {
+                background-color: #0B74E5;
+                color: white;
+                border: none;
+            }
+        }
+    }
+
+    .brand-selection-modal {
+        position: absolute;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid #E0E0E0;
+        padding: 16px;
+        z-index: 9999;
+
+        .brand-selection-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand-selection-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-height: 300px; // Limit height
+            overflow-y: auto;
+
+            .brand-selection-chip {
+                border: 1px solid #D8D8D8;
+                border-radius: 16px;
+                padding: 8px 16px;
+                font-size: 14px;
+                background-color: white;
+                cursor: pointer;
+
+                &.selected {
+                    border-color: #0B74E5;
+                    color: #0B74E5;
+                    background-color: #EBF5FF;
+                }
+            }
+        }
+
+        .brand-selection-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+
+            .reset-button,
+            .apply-button {
+                flex: 1;
+                padding: 10px;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .reset-button {
+                background-color: white;
+                border: 1px solid #D8D8D8;
+                color: #38383D;
+            }
+
+            .apply-button {
+                background-color: #0B74E5;
+                color: white;
+                border: none;
             }
         }
     }
@@ -473,7 +610,7 @@
             .sort-button {
                 height: 32px;
                 padding: 0 12px;
-                border-radius: 4px;
+                border-radius: 16px;
                 border: 1px solid #D8D8D8; // Darker border color
                 background: white;
                 display: flex;

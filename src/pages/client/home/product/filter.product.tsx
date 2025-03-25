@@ -6,14 +6,45 @@ const ProductFilter: React.FC = () => {
     const [supplierExpanded, setSupplierExpanded] = useState(false);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
 
-    // Single ref for the main container
     const containerRef = useRef<HTMLDivElement>(null);
+    const expandButtonRef = useRef<HTMLButtonElement>(null);
 
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
 
     const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB..."];
     const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB...", "info book"];
+    const allBrands = [
+        "Deli", "Thiên Long", "MAGIX", "Hồng Hà",
+        "K&B Handmade", "KLONG", "Pentel", "Stacom",
+        "Stabilo", "LAMY", "Plus", "Uyên Loan", "Campus",
+        "Baoke", "Enter", "Fahasa", "PROLEA PL", "Bavico",
+        "Flexoffice", "Việt Net", "Văn Lang", "The Sun",
+        "Artline", "Casio", "Mont Marte", "DAICAT",
+        "Kai Nguyên", "PILOT", "Uncle Bills", "Elephant"
+    ];
+    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+
+    const handleBrandToggle = () => {
+        console.log('Brand toggle clicked'); // Debugging log
+        setBrandExpanded(!brandExpanded);
+    };
+
+    const handleBrandSelect = (brand: string) => {
+        setSelectedBrands(prev =>
+            prev.includes(brand)
+                ? prev.filter(b => b !== brand)
+                : [...prev, brand]
+        );
+    };
+
+    const handleResetBrands = () => {
+        setSelectedBrands([]);
+    };
+
+    useEffect(() => {
+        console.log('brandExpanded:', brandExpanded); // Debugging log
+    }, [brandExpanded]);
 
     const handleSupplierToggle = () => {
         setSupplierExpanded(!supplierExpanded);
@@ -25,21 +56,15 @@ const ProductFilter: React.FC = () => {
         setShowLeftArrow(false);
     };
 
-    const handleBrandToggle = () => {
-        setBrandExpanded(!brandExpanded);
-    };
-
     useEffect(() => {
         if (containerRef.current) {
             if (supplierExpanded) {
-                // When supplier is expanded, shift the whole container left
                 containerRef.current.style.transform = 'translateX(-80px)';
-                containerRef.current.classList.add('translated'); // Add class to help with CSS targeting
+                containerRef.current.classList.add('translated');
                 setShowLeftArrow(true);
             } else {
-                // Reset transform when collapsed
                 containerRef.current.style.transform = 'translateX(0)';
-                containerRef.current.classList.remove('translated'); // Remove class when not translated
+                containerRef.current.classList.remove('translated');
                 setShowLeftArrow(false);
             }
         }
@@ -47,9 +72,7 @@ const ProductFilter: React.FC = () => {
 
     return (
         <div className="product-filter-container">
-            {/* Independent left arrow button outside the main container */}
             {showLeftArrow && (
-
                 <div onClick={handleLeftArrowClick} className="left-arrow-button arrow-icon-wrapper">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                         <path d="M15.5 17L9.5 11L15.5 5"
@@ -59,7 +82,6 @@ const ProductFilter: React.FC = () => {
             )}
 
             <div className="filter-sections-wrapper">
-                {/* Main container with single ref - Make sure the vertical divider is inside this container */}
                 <div className="filter-sections" ref={containerRef}>
                     <div className="filter-section-groups">
                         <div className="filter-sections-brand">
@@ -75,7 +97,7 @@ const ProductFilter: React.FC = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    <button className="expand-button" onClick={handleBrandToggle}>
+                                    <button ref={expandButtonRef} className="expand-button" onClick={handleBrandToggle}>
                                         <svg width="16" height="16" viewBox="0 0 24 24">
                                             <path d={brandExpanded ? "M15.5 11L9.5 17L3.5 11" : "M12 16.5L6 10.5L7.4 9.1L12 13.7L16.6 9.1L18 10.5L12 16.5Z"}
                                                 stroke={brandExpanded ? "currentColor" : undefined}
@@ -86,10 +108,49 @@ const ProductFilter: React.FC = () => {
                                         </svg>
                                     </button>
                                 </div>
+                                {brandExpanded && expandButtonRef.current && (
+                                    <div
+                                        className="brand-selection-modal"
+                                        style={{
+                                            position: 'absolute',
+                                            top: `${expandButtonRef.current.getBoundingClientRect().bottom + window.scrollY}px`, // Position below the button
+                                            left: `${expandButtonRef.current.getBoundingClientRect().left}px`, // Align with the button's left edge
+                                            width: '450px', // Set a fixed width for the modal
+                                            zIndex: 9999
+                                        }}
+                                    >
+                                        <div className="brand-selection-content">
+                                            <div className="brand-selection-options">
+                                                {allBrands.map((brand, index) => (
+                                                    <button
+                                                        key={index}
+                                                        className={`brand-selection-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
+                                                        onClick={() => handleBrandSelect(brand)}
+                                                    >
+                                                        {brand}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            <div className="brand-selection-actions">
+                                                <button
+                                                    className="reset-button"
+                                                    onClick={handleResetBrands}
+                                                >
+                                                    Xóa lọc
+                                                </button>
+                                                <button
+                                                    className="apply-button"
+                                                    onClick={handleBrandToggle}
+                                                >
+                                                    Xem kết quả
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
-                        {/* Vertical divider with visible character */}
                         <div className="vertical-divider">|</div>
 
                         <div className="filter-sections-supplier">
@@ -128,7 +189,6 @@ const ProductFilter: React.FC = () => {
                         <span>Tất cả</span>
                     </div>
                 </div>
-
             </div>
 
             <div className="filter-options-row">
@@ -180,7 +240,6 @@ const ProductFilter: React.FC = () => {
                         <span className="option-text">từ 4 sao</span>
                     </div>
                 </label>
-
 
                 <div className="sort">
                     <span className="sort-label">Sắp xếp</span>
