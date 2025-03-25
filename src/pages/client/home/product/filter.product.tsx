@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import './filter.product.scss';
+import './modal.css';
+import ModalTestHelper from './ModalTestHelper';
 
 const ProductFilter: React.FC = () => {
     const [brandExpanded, setBrandExpanded] = useState(false);
@@ -14,6 +17,7 @@ const ProductFilter: React.FC = () => {
 
     const suppliers = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB..."];
     const suppliersFull = ["Nhà Sách Vĩnh Thụy", "Bamboo Books", "HỆ THỐNG NHÀ SÁCH AB...", "info book"];
+
     const allBrands = [
         "Deli", "Thiên Long", "MAGIX", "Hồng Hà",
         "K&B Handmade", "KLONG", "Pentel", "Stacom",
@@ -23,11 +27,12 @@ const ProductFilter: React.FC = () => {
         "Artline", "Casio", "Mont Marte", "DAICAT",
         "Kai Nguyên", "PILOT", "Uncle Bills", "Elephant"
     ];
+
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-    const modalRef = useRef<HTMLDivElement>(null);
+
     const handleBrandToggle = () => {
-        console.log('Brand toggle clicked'); // Debugging log
-        setBrandExpanded(!brandExpanded);
+        console.log('Toggle brand modal, current state:', !brandExpanded);
+        setBrandExpanded(prev => !prev);
     };
 
     const handleBrandSelect = (brand: string) => {
@@ -42,19 +47,110 @@ const ProductFilter: React.FC = () => {
         setSelectedBrands([]);
     };
 
-    useEffect(() => {
-        console.log('brandExpanded:', brandExpanded); // Debugging log
-        if (brandExpanded && expandButtonRef.current && modalRef.current) {
-            const buttonRect = expandButtonRef.current.getBoundingClientRect();
-            const containerRect = containerRef.current?.getBoundingClientRect();
-
-            if (containerRect) {
-                modalRef.current.style.top = `${buttonRect.bottom - containerRect.top + 10}px`; // 10px margin
-                modalRef.current.style.left = `${buttonRect.left - containerRect.left}px`;
-                modalRef.current.style.width = `${buttonRect.width}px`;
-            }
+    const renderBrandModal = () => {
+        if (!brandExpanded || !expandButtonRef.current) {
+            return null;
         }
-    }, [brandExpanded]);
+
+        const buttonRect = expandButtonRef.current.getBoundingClientRect();
+
+        return ReactDOM.createPortal(
+            <div
+                className="brand-selection-modal"
+                style={{
+                    position: 'fixed',
+                    top: `${buttonRect.bottom + 10}px`,
+                    left: `${buttonRect.left}px`,
+                    width: '450px',
+                    maxWidth: '90vw',
+                    zIndex: 9999,
+                    background: 'white',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+                    border: '1px solid #E0E0E0',
+                    borderRadius: '8px',
+                    overflow: 'hidden'
+                }}
+            >
+                <div style={{
+                    padding: '10px',
+                    borderBottom: '1px solid #eee',
+                    fontWeight: 'bold',
+                    color: '#0B74E5',
+                    background: '#f5f9ff'
+                }}>
+                    Thương hiệu
+                </div>
+                <div className="brand-selection-content" style={{ padding: '16px' }}>
+                    <div className="brand-selection-options" style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '8px',
+                        maxHeight: '300px',
+                        overflowY: 'auto'
+                    }}>
+                        {allBrands.map((brand, index) => (
+                            <button
+                                key={index}
+                                className={`brand-selection-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
+                                onClick={() => handleBrandSelect(brand)}
+                                style={{
+                                    border: `1px solid ${selectedBrands.includes(brand) ? '#0B74E5' : '#D8D8D8'}`,
+                                    borderRadius: '16px',
+                                    padding: '8px 16px',
+                                    fontSize: '14px',
+                                    background: selectedBrands.includes(brand) ? '#EBF5FF' : 'white',
+                                    color: selectedBrands.includes(brand) ? '#0B74E5' : '#38383D',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {brand}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="brand-selection-actions" style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        gap: '16px',
+                        marginTop: '16px'
+                    }}>
+                        <button
+                            className="reset-button"
+                            onClick={handleResetBrands}
+                            style={{
+                                flex: 1,
+                                padding: '12px',
+                                borderRadius: '4px',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                background: 'white',
+                                border: '1px solid #D8D8D8',
+                                color: '#38383D'
+                            }}
+                        >
+                            Xóa lọc
+                        </button>
+                        <button
+                            className="apply-button"
+                            onClick={handleBrandToggle}
+                            style={{
+                                flex: 1,
+                                padding: '12px',
+                                borderRadius: '4px',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                background: '#0B74E5',
+                                color: 'white',
+                                border: 'none'
+                            }}
+                        >
+                            Xem kết quả
+                        </button>
+                    </div>
+                </div>
+            </div>,
+            document.body
+        );
+    };
 
     const handleSupplierToggle = () => {
         setSupplierExpanded(!supplierExpanded);
@@ -80,8 +176,29 @@ const ProductFilter: React.FC = () => {
         }
     }, [supplierExpanded]);
 
+    // Add useEffect to debug
+    useEffect(() => {
+        if (brandExpanded) {
+            console.log('Brand expanded changed to true');
+            // Check if any modals rendered
+            setTimeout(() => {
+                const modals = document.querySelectorAll('.brand-selection-modal, #brand-modal-fixed');
+                console.log('Found modals:', modals.length);
+                modals.forEach(modal => {
+                    console.log('Modal:', modal);
+                    // Force visibility
+                    (modal as HTMLElement).style.display = 'block';
+                    (modal as HTMLElement).style.visibility = 'visible';
+                    (modal as HTMLElement).style.opacity = '1';
+                    (modal as HTMLElement).style.zIndex = '999999';
+                });
+            }, 100);
+        }
+    }, [brandExpanded]);
+
     return (
         <div className="product-filter-container">
+            {/* Left arrow button */}
             {showLeftArrow && (
                 <div onClick={handleLeftArrowClick} className="left-arrow-button arrow-icon-wrapper">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -94,6 +211,7 @@ const ProductFilter: React.FC = () => {
             <div className="filter-sections-wrapper">
                 <div className="filter-sections" ref={containerRef}>
                     <div className="filter-section-groups">
+                        {/* Brand section */}
                         <div className="filter-sections-brand">
                             <div className="filter-section">
                                 <div className="section-label">Thương hiệu</div>
@@ -118,38 +236,12 @@ const ProductFilter: React.FC = () => {
                                         </svg>
                                     </button>
                                 </div>
-                                {brandExpanded && (
-                                    <div
-                                        className="brand-selection-modal"
-                                    >
-                                        <div className="brand-selection-content">
-                                            <div className="brand-selection-options">
-                                                {allBrands.map((brand, index) => (
-                                                    <button
-                                                        key={index}
-                                                        className={`brand-selection-chip ${selectedBrands.includes(brand) ? 'selected' : ''}`}
-                                                        onClick={() => handleBrandSelect(brand)}
-                                                    >
-                                                        {brand}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                            <div className="brand-selection-actions">
-                                                <button className="reset-button" onClick={handleResetBrands}>
-                                                    Xóa lọc
-                                                </button>
-                                                <button className="apply-button" onClick={handleBrandToggle}>
-                                                    Xem kết quả
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         </div>
 
                         <div className="vertical-divider">|</div>
 
+                        {/* Supplier section */}
                         <div className="filter-sections-supplier">
                             <div className="filter-section">
                                 <div className="section-label">Nhà cung cấp</div>
@@ -188,7 +280,9 @@ const ProductFilter: React.FC = () => {
                 </div>
             </div>
 
+            {/* Filter options row */}
             <div className="filter-options-row">
+                {/* First option */}
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
@@ -201,6 +295,7 @@ const ProductFilter: React.FC = () => {
                     </div>
                 </label>
 
+                {/* Second option */}
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
@@ -213,6 +308,7 @@ const ProductFilter: React.FC = () => {
                     </div>
                 </label>
 
+                {/* Third option */}
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
@@ -224,6 +320,7 @@ const ProductFilter: React.FC = () => {
                     </div>
                 </label>
 
+                {/* Fourth option */}
                 <label className="option">
                     <input type="checkbox" />
                     <div className="option-content">
@@ -238,6 +335,7 @@ const ProductFilter: React.FC = () => {
                     </div>
                 </label>
 
+                {/* Sort section */}
                 <div className="sort">
                     <span className="sort-label">Sắp xếp</span>
                     <button className="sort-button">
@@ -248,6 +346,35 @@ const ProductFilter: React.FC = () => {
                     </button>
                 </div>
             </div>
+
+            {/* Render the modal outside the normal flow */}
+            {brandExpanded && renderBrandModal()}
+
+            {/* Add hidden debug element */}
+            <div id="debug-mode" style={{ display: 'none' }}></div>
+
+            {/* Add a more visible button for testing */}
+            <button
+                onClick={handleBrandToggle}
+                style={{
+                    position: 'fixed',
+                    bottom: '120px',
+                    right: '20px',
+                    zIndex: 9999,
+                    padding: '10px 20px',
+                    background: 'red',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: '16px'
+                }}
+            >
+                OPEN MODAL (Click Me)
+            </button>
+
+            <ModalTestHelper />
         </div>
     );
 };

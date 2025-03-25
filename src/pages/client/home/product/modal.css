@@ -1,0 +1,94 @@
+/* Create a separate CSS file for the modal that won't be affected by other styles */
+
+#brand-modal {
+    position: fixed !important;
+    background: white !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5) !important;
+    border: 3px solid #0B74E5 !important;
+    z-index: 999999 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    animation: modalPop 0.3s ease-out !important;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#brand-modal .brand-selection-content {
+    padding: 16px;
+}
+
+#brand-modal .brand-selection-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#brand-modal .brand-selection-chip {
+    border: 1px solid #D8D8D8;
+    border-radius: 16px;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+}
+
+#brand-modal .brand-selection-chip:hover {
+    background-color: #f5f5f5;
+}
+
+#brand-modal .brand-selection-chip.selected {
+    border-color: #0B74E5;
+    color: #0B74E5;
+    background-color: #EBF5FF;
+}
+
+#brand-modal .brand-selection-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+#brand-modal .reset-button,
+#brand-modal .apply-button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#brand-modal .reset-button {
+    background-color: white;
+    border: 1px solid #D8D8D8;
+    color: #38383D;
+}
+
+#brand-modal .reset-button:hover {
+    background-color: #f5f5f5;
+}
+
+#brand-modal .apply-button {
+    background-color: #0B74E5;
+    color: white;
+    border: none;
+}
+
+#brand-modal .apply-button:hover {
+    background-color: #0A66C2;
+}
