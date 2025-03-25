@@ -58,9 +58,9 @@ const ProductFilter: React.FC = () => {
             <div
                 className="brand-selection-modal"
                 style={{
-                    position: 'fixed',
-                    top: `${buttonRect.bottom + 10}px`,
-                    left: `${buttonRect.left}px`,
+                    position: 'absolute',
+                    top: `${buttonRect.bottom + window.scrollY + 10}px`,
+                    left: `${buttonRect.left + window.scrollX}px`,
                     width: '450px',
                     maxWidth: '90vw',
                     zIndex: 9999,
