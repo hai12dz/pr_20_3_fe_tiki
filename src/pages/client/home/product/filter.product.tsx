@@ -24,7 +24,7 @@ const ProductFilter: React.FC = () => {
         "Kai Nguyên", "PILOT", "Uncle Bills", "Elephant"
     ];
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-
+    const modalRef = useRef<HTMLDivElement>(null);
     const handleBrandToggle = () => {
         console.log('Brand toggle clicked'); // Debugging log
         setBrandExpanded(!brandExpanded);
@@ -44,6 +44,16 @@ const ProductFilter: React.FC = () => {
 
     useEffect(() => {
         console.log('brandExpanded:', brandExpanded); // Debugging log
+        if (brandExpanded && expandButtonRef.current && modalRef.current) {
+            const buttonRect = expandButtonRef.current.getBoundingClientRect();
+            const containerRect = containerRef.current?.getBoundingClientRect();
+
+            if (containerRect) {
+                modalRef.current.style.top = `${buttonRect.bottom - containerRect.top + 10}px`; // 10px margin
+                modalRef.current.style.left = `${buttonRect.left - containerRect.left}px`;
+                modalRef.current.style.width = `${buttonRect.width}px`;
+            }
+        }
     }, [brandExpanded]);
 
     const handleSupplierToggle = () => {
@@ -108,16 +118,9 @@ const ProductFilter: React.FC = () => {
                                         </svg>
                                     </button>
                                 </div>
-                                {brandExpanded && expandButtonRef.current && (
+                                {brandExpanded && (
                                     <div
                                         className="brand-selection-modal"
-                                        style={{
-                                            position: 'absolute',
-                                            top: `${expandButtonRef.current.getBoundingClientRect().bottom + window.scrollY}px`, // Position below the button
-                                            left: `${expandButtonRef.current.getBoundingClientRect().left}px`, // Align with the button's left edge
-                                            width: '450px', // Set a fixed width for the modal
-                                            zIndex: 9999
-                                        }}
                                     >
                                         <div className="brand-selection-content">
                                             <div className="brand-selection-options">
@@ -132,16 +135,10 @@ const ProductFilter: React.FC = () => {
                                                 ))}
                                             </div>
                                             <div className="brand-selection-actions">
-                                                <button
-                                                    className="reset-button"
-                                                    onClick={handleResetBrands}
-                                                >
+                                                <button className="reset-button" onClick={handleResetBrands}>
                                                     Xóa lọc
                                                 </button>
-                                                <button
-                                                    className="apply-button"
-                                                    onClick={handleBrandToggle}
-                                                >
+                                                <button className="apply-button" onClick={handleBrandToggle}>
                                                     Xem kết quả
                                                 </button>
                                             </div>

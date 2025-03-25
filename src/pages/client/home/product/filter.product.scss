@@ -4,8 +4,9 @@
     padding: 8px 0;
     font-family: 'Inter, Helvetica, Arial, sans-serif';
     color: #38383D;
-    position: relative;
+    position: relative; // Ensure proper positioning context
     overflow: visible; // Ensure the modal is not clipped
+    z-index: 8000 !important; // Ensure the container creates a stacking context
 
     // Specific selector to override any other styles
     >.left-arrow-button {
@@ -34,8 +35,9 @@
     }
 
     .filter-sections-wrapper {
-        position: relative;
+        position: relative; // Ensure proper positioning context
         overflow: visible; // Remove 'hidden' to allow the modal to display properly
+        z-index: 1;
     }
 
     .filter-header {
@@ -141,6 +143,15 @@
         }
     }
 
+    .filter-sections-brand {
+        position: relative;
+        overflow: visible;
+        transition: transform 0.3s ease;
+        will-change: transform;
+        z-index: 9000 !important; // Increase z-index significantly to create proper stacking context
+        padding-left: 0; // Remove the left padding so it aligns with content below
+    }
+
     .filter-section-groups {
         display: flex;
         gap: 32px;
@@ -231,6 +242,9 @@
     }
 
     .filter-section {
+        position: relative;
+        z-index: 9500 !important; // Higher z-index for parent of modal
+
         .section-label {
             font-size: 14px;
             color: #808089;
@@ -242,13 +256,14 @@
             display: flex;
             align-items: center;
             position: relative;
+            z-index: 9600 !important; // Increase z-index
         }
 
         .expand-button {
             transition: transform 0.3s ease;
             margin-left: 10px;
             position: relative;
-            z-index: 7; // Increased z-index to appear above other elements
+            z-index: 9700 !important; // Higher z-index
             background: #fff;
             border: 1px solid #D8D8D8;
             border-radius: 50%; // Make it circular
@@ -392,133 +407,80 @@
 
     // Brand Selection Modal Styles - Add after filter options
     .brand-selection-modal {
-        position: absolute;
-        z-index: 9999; // Ensure the modal is on top of all other elements
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        border: 1px solid #E0E0E0;
-        padding: 16px;
+        position: fixed !important; // Changed to fixed to break out of parent stacking context
+        top: 280px !important;
+        left: 100% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90% !important;
+        max-width: 500px !important;
+        background-color: white !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid #E0E0E0 !important;
+        border-radius: 8px !important;
 
         .brand-selection-content {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            padding: 16px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px !important;
+            max-height: 400px !important; // Limit height to prevent it from being too tall
+            overflow: auto !important;
         }
 
         .brand-selection-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            max-height: 300px; // Limit height
-            overflow-y: auto;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+            max-height: 60vh !important;
+            overflow-y: auto !important;
 
             .brand-selection-chip {
-                border: 1px solid #D8D8D8;
-                border-radius: 16px;
-                padding: 8px 16px;
-                font-size: 14px;
-                background-color: white;
-                cursor: pointer;
+                border: 1px solid #D8D8D8 !important;
+                border-radius: 16px !important;
+                padding: 8px 16px !important;
+                font-size: 14px !important;
+                background-color: white !important;
+                cursor: pointer !important;
+                transition: all 0.2s !important;
+
+                &:hover {
+                    background-color: #f5f5f5 !important;
+                }
 
                 &.selected {
-                    border-color: #0B74E5;
-                    color: #0B74E5;
-                    background-color: #EBF5FF;
+                    border-color: #0B74E5 !important;
+                    color: #0B74E5 !important;
+                    background-color: #EBF5FF !important;
                 }
             }
         }
 
         .brand-selection-actions {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
+            display: flex !important;
+            justify-content: space-between !important;
+            gap: 16px !important;
+            margin-top: 16px !important;
 
             .reset-button,
             .apply-button {
-                flex: 1;
-                padding: 10px;
-                border-radius: 4px;
-                font-size: 14px;
-                cursor: pointer;
+                flex: 1 !important;
+                padding: 12px !important;
+                border-radius: 4px !important;
+                font-size: 14px !important;
+                cursor: pointer !important;
+                text-align: center !important;
             }
 
             .reset-button {
-                background-color: white;
-                border: 1px solid #D8D8D8;
-                color: #38383D;
+                background-color: white !important;
+                border: 1px solid #D8D8D8 !important;
+                color: #38383D !important;
             }
 
             .apply-button {
-                background-color: #0B74E5;
-                color: white;
-                border: none;
-            }
-        }
-    }
-
-    .brand-selection-modal {
-        position: absolute;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        border: 1px solid #E0E0E0;
-        padding: 16px;
-        z-index: 9999;
-
-        .brand-selection-content {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .brand-selection-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            max-height: 300px; // Limit height
-            overflow-y: auto;
-
-            .brand-selection-chip {
-                border: 1px solid #D8D8D8;
-                border-radius: 16px;
-                padding: 8px 16px;
-                font-size: 14px;
-                background-color: white;
-                cursor: pointer;
-
-                &.selected {
-                    border-color: #0B74E5;
-                    color: #0B74E5;
-                    background-color: #EBF5FF;
-                }
-            }
-        }
-
-        .brand-selection-actions {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-
-            .reset-button,
-            .apply-button {
-                flex: 1;
-                padding: 10px;
-                border-radius: 4px;
-                font-size: 14px;
-                cursor: pointer;
-            }
-
-            .reset-button {
-                background-color: white;
-                border: 1px solid #D8D8D8;
-                color: #38383D;
-            }
-
-            .apply-button {
-                background-color: #0B74E5;
-                color: white;
-                border: none;
+                background-color: #0B74E5 !important;
+                color: white !important;
+                border: none !important;
             }
         }
     }
