@@ -38,8 +38,23 @@
             flex-direction: column;
             justify-content: space-between; // Đảm bảo các thành phần bên trong được phân bổ đều
             align-items: flex-start; // Căn chỉnh tất cả các thành phần về flex-start
+            position: relative; // Để định vị badge bên trong wrapper
+
+            .badge-container {
+                position: absolute;
+                top: 10px; // Căn chỉnh badge cách phía trên 10px
+                right: 10px; // Căn chỉnh badge cách phía phải 10px
+                z-index: 10; // Đảm bảo badge nằm trên các thành phần khác
+
+                .product-badge {
+                    width: 40px; // Đặt kích thước badge
+                    height: 40px;
+                    object-fit: contain; // Đảm bảo badge không bị méo
+                }
+            }
 
             .thumbnail {
+                position: relative; // Để định vị badge bên trong thumbnail
                 height: 280px !important; // Đảm bảo chiều cao cố định
                 width: 280px !important; // Đảm bảo chiều rộng cố định
                 display: flex;
@@ -52,6 +67,21 @@
                     height: 280px !important; // Đảm bảo chiều cao cố định của ảnh
                     object-fit: cover; // Đảm bảo ảnh được cắt vừa khung mà không bị méo
                     border-radius: 4px;
+                }
+
+                .badge-container {
+                    position: absolute;
+                    bottom: 10px; // Đặt badge cách phía dưới 10px
+                    left: 10px; // Đặt badge cách phía trái 10px
+                    z-index: 10; // Đảm bảo badge nằm trên ảnh
+                    display: flex;
+                    align-items: center;
+
+                    .product-badge {
+                        width: 40px; // Đặt kích thước badge
+                        height: 40px;
+                        object-fit: contain; // Đảm bảo badge không bị méo
+                    }
                 }
             }
 

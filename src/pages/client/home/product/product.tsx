@@ -98,15 +98,29 @@ const Product = () => {
                                 className="column top-deal-column"
                             >
                                 <div className="wrapper">
-                                    <div className="top-deal-badge">
-                                        <Tag color="red">TOP DEAL</Tag>
-                                    </div>
+                                    {/* Thumbnail */}
                                     <div className="thumbnail">
                                         <img
                                             src="https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp"
                                             alt="thumbnail book"
                                         />
+                                        {/* Badge */}
+                                        <div className="badge-container">
+                                            <picture className="webpimg-container">
+                                                <source
+                                                    type="image/webp"
+                                                    srcSet="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
+                                                />
+                                                <img
+                                                    src="https://salt.tikicdn.com/ts/upload/12/e2/4a/c5226426ee9429b0050449ae5403c9cf.png"
+                                                    alt="product_image_badge"
+                                                    className="product-badge"
+                                                />
+                                            </picture>
+                                        </div>
                                     </div>
+
+                                    {/* Price and Promotion */}
                                     <div className="price-section">
                                         <div className="price">
                                             {new Intl.NumberFormat("vi-VN", {
@@ -120,9 +134,13 @@ const Product = () => {
                                             )}
                                         </div>
                                     </div>
+
+                                    {/* Text */}
                                     <div className="text" title={item.mainText}>
                                         <span>{item.mainText}</span>
                                     </div>
+
+                                    {/* Author and Rating */}
                                     <div className="author-rating">
                                         <div className="author" title={item.author}>
                                             <span>{item.author}</span>
@@ -136,6 +154,8 @@ const Product = () => {
                                             <span>Đã bán {item?.sold ?? 0}</span>
                                         </div>
                                     </div>
+
+                                    {/* Extra Badges */}
                                     <div className="extra-badges">
                                         <Tag color="blue">CHÍNH HÃNG</Tag>
                                         <div className="delivery-tag">
