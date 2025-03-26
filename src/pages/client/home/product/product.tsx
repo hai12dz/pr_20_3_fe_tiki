@@ -1,9 +1,22 @@
 import { getBooksAPI } from "@/services/api";
-import { ReloadOutlined } from "@ant-design/icons";
+import { ReloadOutlined, StarFilled } from "@ant-design/icons";
 import { Button, Rate, Row, Col, Tag } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import 'styles/product.scss'
+
+const CustomStar = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 12 12"
+    >
+        <path d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z" />
+    </svg>
+);
+
 const Product = () => {
 
     const [searchTerm, setSearchTerm] = useOutletContext() as any;
@@ -137,25 +150,24 @@ const Product = () => {
                                             )}
                                         </div>
                                     </div>
-
+                                    <div className="author" title={item.author}>
+                                        <span>{item.author}</span>
+                                    </div>
                                     {/* Text */}
                                     <div className="text" title={item.mainText}>
                                         <span>{item.mainText}</span>
                                     </div>
 
-                                    {/* Author and Rating */}
-                                    <div className="author-rating">
-                                        <div className="author" title={item.author}>
-                                            <span>{item.author}</span>
-                                        </div>
-                                        <div className="rating">
-                                            <Rate
-                                                value={5}
-                                                disabled
-                                                style={{ fontSize: 12 }}
-                                            />
-                                            <span>Đã bán {item?.sold ?? 0}</span>
-                                        </div>
+
+                                    <div className="rating">
+                                        <Rate
+                                            className="rate"
+                                            value={5}
+                                            disabled
+                                            style={{ fontSize: 12 }}
+                                            character={<CustomStar />}
+                                        />
+                                        <span>Đã bán {item?.sold ?? 0}</span>
                                     </div>
 
                                     {/* Extra Badges */}
