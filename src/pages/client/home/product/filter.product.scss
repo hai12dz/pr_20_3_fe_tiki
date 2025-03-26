@@ -415,14 +415,15 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     border: 1px solid #E0E0E0;
     min-width: 320px;
-    max-height: none !important;
+    max-height: none !important; // Remove fixed height
+    height: auto !important; // Adjust height to fit content
+    overflow: visible !important; // Remove scrollbars
     /* Allow the modal to expand fully */
-    overflow: visible !important;
-    /* Remove scrollbars */
-    height: auto !important;
-    /* Ensure height adjusts to content */
     transform-origin: top left; // For smoother animations
     animation: modalFadeIn 0.2s ease-out; // Add animation for visibility
+    overflow: hidden !important; // Ensure no scrollbars
+    display: flex; // Use flexbox to ensure proper content alignment
+    flex-direction: column; // Stack content vertically
 
     @keyframes modalFadeIn {
         from {
@@ -454,12 +455,10 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        max-height: none !important;
+        max-height: none !important; // Remove fixed height
+        height: auto !important; // Adjust height to fit content
+        overflow: hidden !important; // Ensure no scrollbars
         /* Allow options to expand fully */
-        overflow: visible !important;
-        /* Remove scrollbars */
-        height: auto !important;
-        /* Ensure height adjusts to content */
 
         .brand-selection-chip {
             border: 1px solid #D8D8D8;

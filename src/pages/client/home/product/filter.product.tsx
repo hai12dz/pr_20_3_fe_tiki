@@ -90,18 +90,13 @@ const ProductFilter: React.FC = () => {
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
                     border: '1px solid #E0E0E0',
                     borderRadius: '8px',
-                    overflow: 'hidden'
+                    overflow: 'hidden', // Ensure no scrollbars
+                    height: 'auto', // Dynamically adjust height to fit content
+                    display: 'flex', // Use flexbox for alignment
+                    flexDirection: 'column' // Stack content vertically
                 }}
             >
-                <div style={{
-                    padding: '10px',
-                    borderBottom: '1px solid #eee',
-                    fontWeight: 'bold',
-                    color: '#0B74E5',
-                    background: '#f5f9ff'
-                }}>
-                    Thương hiệu
-                </div>
+
                 <div className="brand-selection-content" style={{ padding: '16px' }}>
                     <div className="brand-selection-options" style={{
                         display: 'flex',
