@@ -47,10 +47,11 @@ const ModalDebug: React.FC = () => {
                 width: '400px',
                 maxWidth: '90vw',
                 background: 'white',
-                boxShadow: '0 0 50px black',
+                boxShadow: 'none', // Removed the box shadow
                 borderRadius: '8px',
                 zIndex: 9999999,
-                border: '5px solid blue',
+                border: 'none', // Removed the border
+                outline: 'none', // Removed the outline
                 padding: '20px',
                 display: 'flex',
                 flexDirection: 'column',

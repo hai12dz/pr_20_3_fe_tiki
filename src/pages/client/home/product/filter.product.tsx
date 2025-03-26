@@ -11,6 +11,7 @@ const ProductFilter: React.FC = () => {
 
     const containerRef = useRef<HTMLDivElement>(null);
     const expandButtonRef = useRef<HTMLButtonElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
@@ -47,6 +48,28 @@ const ProductFilter: React.FC = () => {
         setSelectedBrands([]);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+        if (
+            modalRef.current &&
+            !modalRef.current.contains(event.target as Node) &&
+            expandButtonRef.current &&
+            !expandButtonRef.current.contains(event.target as Node)
+        ) {
+            setBrandExpanded(false);
+        }
+    };
+
+    useEffect(() => {
+        if (brandExpanded) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [brandExpanded]);
+
     const renderBrandModal = () => {
         if (!brandExpanded || !expandButtonRef.current) {
             return null;
@@ -56,6 +79,7 @@ const ProductFilter: React.FC = () => {
 
         return ReactDOM.createPortal(
             <div
+                ref={modalRef}
                 className="brand-selection-modal"
                 style={{
                     position: 'absolute',
@@ -155,11 +179,13 @@ const ProductFilter: React.FC = () => {
     const handleSupplierToggle = () => {
         setSupplierExpanded(!supplierExpanded);
         setShowLeftArrow(!supplierExpanded);
+        setBrandExpanded(false); // Close the modal when toggling supplier
     };
 
     const handleLeftArrowClick = () => {
         setSupplierExpanded(false);
         setShowLeftArrow(false);
+        setBrandExpanded(false); // Close the modal when clicking the left arrow
     };
 
     useEffect(() => {

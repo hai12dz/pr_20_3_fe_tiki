@@ -4,8 +4,12 @@
     position: fixed !important;
     background: white !important;
     border-radius: 8px !important;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5) !important;
-    border: 3px solid #0B74E5 !important;
+    box-shadow: none !important;
+    /* Removed the box shadow */
+    border: none !important;
+    /* Removed the border */
+    outline: none !important;
+    /* Removed the outline */
     z-index: 999999 !important;
     display: block !important;
     visibility: visible !important;
