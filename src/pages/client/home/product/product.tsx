@@ -118,7 +118,7 @@ const Product = () => {
                                                 />
                                             </picture>
                                         </div>
-
+                                        <div className="left-badge">25.3</div>
                                         {/* Badge "AD" */}
                                         <p className="ads-badge">AD</p>
                                     </div>
