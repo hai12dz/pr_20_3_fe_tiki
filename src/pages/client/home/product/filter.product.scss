@@ -415,8 +415,12 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     border: 1px solid #E0E0E0;
     min-width: 320px;
-    max-height: 80vh; // Limit height to viewport height
-    overflow-y: auto; // Allow scrolling for overflow content
+    max-height: none !important;
+    /* Allow the modal to expand fully */
+    overflow: visible !important;
+    /* Remove scrollbars */
+    height: auto !important;
+    /* Ensure height adjusts to content */
     transform-origin: top left; // For smoother animations
     animation: modalFadeIn 0.2s ease-out; // Add animation for visibility
 
@@ -450,8 +454,12 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        max-height: 300px;
-        overflow-y: auto;
+        max-height: none !important;
+        /* Allow options to expand fully */
+        overflow: visible !important;
+        /* Remove scrollbars */
+        height: auto !important;
+        /* Ensure height adjusts to content */
 
         .brand-selection-chip {
             border: 1px solid #D8D8D8;

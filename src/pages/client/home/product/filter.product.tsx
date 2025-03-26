@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './filter.product.scss';
-import './modal.css';
-import ModalTestHelper from './ModalTestHelper';
 
 const ProductFilter: React.FC = () => {
     const [brandExpanded, setBrandExpanded] = useState(false);
@@ -376,31 +374,10 @@ const ProductFilter: React.FC = () => {
             {/* Render the modal outside the normal flow */}
             {brandExpanded && renderBrandModal()}
 
-            {/* Add hidden debug element */}
-            <div id="debug-mode" style={{ display: 'none' }}></div>
 
-            {/* Add a more visible button for testing */}
-            <button
-                onClick={handleBrandToggle}
-                style={{
-                    position: 'fixed',
-                    bottom: '120px',
-                    right: '20px',
-                    zIndex: 9999,
-                    padding: '10px 20px',
-                    background: 'red',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontWeight: 'bold',
-                    fontSize: '16px'
-                }}
-            >
-                OPEN MODAL (Click Me)
-            </button>
 
-            <ModalTestHelper />
+
+
         </div>
     );
 };
