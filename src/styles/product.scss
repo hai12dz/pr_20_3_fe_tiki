@@ -71,6 +71,26 @@
                     max-width: none !important; // Ghi đè max-width để đảm bảo chiều rộng cố định
                     max-height: none !important; // Ghi đè max-height để đảm bảo chiều cao cố định
                 }
+
+                .ads-badge {
+                    display: inline-block;
+                    height: 20px;
+                    margin: 0;
+                    padding: 2px 4px;
+                    background: var(--alias-themeVariant, #F5F5FA);
+                    border-radius: 6px;
+                    color: rgb(39, 39, 42);
+                    font-size: 10px;
+                    font-weight: 700;
+                    line-height: 150%;
+                    text-transform: uppercase;
+                    border: 1px solid rgb(255, 255, 255);
+                    z-index: 2;
+                    white-space: nowrap;
+                    position: absolute;
+                    top: 5px; // Đặt vị trí ở góc trên
+                    right: 15px; // Đặt vị trí ở bên phải
+                }
             }
 
             .price-row {

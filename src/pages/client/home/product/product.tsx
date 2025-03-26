@@ -118,6 +118,9 @@ const Product = () => {
                                                 />
                                             </picture>
                                         </div>
+
+                                        {/* Badge "AD" */}
+                                        <p className="ads-badge">AD</p>
                                     </div>
 
                                     {/* Price and Promotion */}
