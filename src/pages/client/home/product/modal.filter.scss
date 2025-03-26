@@ -1,0 +1,77 @@
+.modal-service-section,
+.modal-promotion-section,
+.modal-rating-section {
+    margin-bottom: 16px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #38383d;
+        margin-bottom: 8px;
+    }
+
+    .ant-checkbox-wrapper {
+        display: flex;
+        align-items: center; // Align image and text horizontally
+
+        img {
+            height: 16px; // Match the height of the text
+            width: auto;
+            display: inline-block; // Ensure proper alignment
+            vertical-align: middle; // Align with text
+        }
+
+        span {
+            font-size: 14px;
+            color: #38383d;
+            line-height: 16px; // Match the height of the image
+        }
+
+        .service-icon {
+            height: 17px;
+            width: 34px;
+            object-fit: contain;
+
+        }
+
+        .promotion-icon {
+            height: 17px;
+            width: 79px;
+            object-fit: contain;
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+}
+
+.modal-category-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .ant-checkbox-wrapper {
+        display: flex;
+        align-items: center; // Align image and text horizontally
+        gap: 8px;
+        width: 50%; // Ensure two columns
+
+        img {
+            height: 16px; // Match the height of the text
+            width: auto;
+        }
+
+        span {
+            font-size: 14px;
+            color: #38383d;
+        }
+    }
+}

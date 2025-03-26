@@ -1,16 +1,90 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './filter.product.scss';
+import FilterProduct from './modal.filter';
+import { useOutletContext } from 'react-router-dom';
+import { getBooksAPI, getBrandsAPI, getFullCategories, getSuppliersAPI } from '@/services/api';
 
 const ProductFilter: React.FC = () => {
     const [brandExpanded, setBrandExpanded] = useState(false);
     const [supplierExpanded, setSupplierExpanded] = useState(false);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
-
+    const [sortMenuVisible, setSortMenuVisible] = useState(false);
+    const [selectedSort, setSelectedSort] = useState('Phổ biến');
+    const sortOptions = ['Phổ biến', 'Bán chạy', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao đến thấp'];
+    const sortButtonRef = useRef<HTMLButtonElement>(null);
+    const sortMenuRef = useRef<HTMLDivElement>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [queryFiler, setQueryFilter] = useState<string>("")
+    const [category, setCategory] = useState<string>("")
+    const [listBrand, setListBrand] = useState<IBrands[]>([])
+    const [listSupplier, setListSupplier] = useState<ISupplier[]>([])
+    const [listBook, setListBook] = useState<IBookTable[]>([]);
+    const [pageSize, setPageSize] = useState<number>(10);
+    const [total, setTotal] = useState<number>(0);
+    const [listFullCategory, setListFullCategory] = useState<ICategory[]>([])
     const containerRef = useRef<HTMLDivElement>(null);
     const expandButtonRef = useRef<HTMLButtonElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
+    const [current, setCurrent] = useState<number>(1);
+    const [filter, setFilter] = useState<string>("");
+    const [sortQuery, setSortQuery] = useState<string>("sort=-sold");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [searchTerm, setSearchTerm] = useOutletContext() as any;
 
+    useEffect(() => {
+        // Add empty dependency array to prevent infinite rendering
+
+        fetchBrand();
+        fetchSupplier();
+        fetchFullCategories(); // This function was defined but never called
+    }, []);
+    useEffect(() => {
+        fetchBook();
+    }, [current, pageSize, filter, sortQuery]);
+
+    const fetchBook = async () => {
+        setIsLoading(true)
+        let query = `current=${current}&pageSize=${pageSize}`;
+        if (filter) {
+            query += `&${filter}`;
+        }
+        if (sortQuery) {
+            query += `&${sortQuery}`;
+        }
+
+        if (searchTerm) {
+            query += `&mainText=/${searchTerm}/i`;
+        }
+
+        const res = await getBooksAPI(query);
+        if (res && res.data) {
+            setListBook(res.data.items);
+            setTotal(res.data.meta.totalItems)
+        }
+        setIsLoading(false)
+    }
+
+
+    const fetchBrand = async () => {
+
+        const res = await getBrandsAPI();
+        setListBrand(res.data!)
+
+    }
+    const fetchSupplier = async () => {
+
+        const res = await getSuppliersAPI();
+        setListSupplier(res.data!)
+
+    }
+
+    const fetchFullCategories = async () => {
+        const res = await getFullCategories()
+
+        setListFullCategory(res.data!)
+
+    }
     const brands = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
     const brandsFull = ["Deli", "Thiên Long", "MAGIX", "Hồng Hà"];
 
@@ -216,6 +290,79 @@ const ProductFilter: React.FC = () => {
         }
     }, [brandExpanded]);
 
+    const toggleSortMenu = () => {
+        setSortMenuVisible((prev) => !prev);
+    };
+
+    const handleSortSelect = (option: string) => {
+        setSelectedSort(option);
+        setSortMenuVisible(false);
+    };
+
+    const handleClickOutsideSortMenu = (event: MouseEvent) => {
+        if (
+            sortMenuRef.current &&
+            !sortMenuRef.current.contains(event.target as Node) &&
+            sortButtonRef.current &&
+            !sortButtonRef.current.contains(event.target as Node)
+        ) {
+            setSortMenuVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        if (sortMenuVisible) {
+            document.addEventListener('mousedown', handleClickOutsideSortMenu);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutsideSortMenu);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideSortMenu);
+        };
+    }, [sortMenuVisible]);
+
+    const renderSortDropdown = () => {
+        if (!sortMenuVisible || !sortButtonRef.current) return null;
+
+        const buttonRect = sortButtonRef.current.getBoundingClientRect();
+
+        return ReactDOM.createPortal(
+            <div
+                ref={sortMenuRef}
+                className="sort-menu visible"
+                style={{
+                    position: 'absolute',
+                    top: `${buttonRect.bottom + window.scrollY}px`,
+                    right: '70px',
+                    width: '200px',
+                    background: 'white',
+                    border: '1px solid #E0E0E0',
+                    borderRadius: '4px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                    zIndex: 1000,
+                }}
+            >
+                {sortOptions.map((option, index) => (
+                    <div
+                        key={index}
+                        className={`sort-item ${selectedSort === option ? 'selected' : ''}`}
+                        onClick={() => handleSortSelect(option)}
+                    >
+                        {option}
+                        {selectedSort === option && (
+                            <img
+                                src="https://salt.tikicdn.com/ts/upload/0a/3f/8c/35f5967924f138b30c5840d3907ba081.png"
+                                alt="selected"
+                                style={{ width: '16px', height: '16px' }}
+                            />
+                        )}
+                    </div>
+                ))}
+            </div>,
+            document.body
+        );
+    };
+
     return (
         <div className="product-filter-container">
             {/* Left arrow button */}
@@ -289,7 +436,10 @@ const ProductFilter: React.FC = () => {
                     </div>
                 </div>
                 <div className="filter-header">
-                    <div className="filter-button">
+                    <div
+                        onClick={() => { setIsModalOpen(true) }}
+
+                        className="filter-button">
                         <img
                             src="https://salt.tikicdn.com/ts/upload/3f/23/35/2d29fcaea0d10cbb85ce5b0d4cd20add.png"
                             alt="filters"
@@ -358,12 +508,13 @@ const ProductFilter: React.FC = () => {
                 {/* Sort section */}
                 <div className="sort">
                     <span className="sort-label">Sắp xếp</span>
-                    <button className="sort-button">
-                        <span>Phổ biến</span>
+                    <button ref={sortButtonRef} className="sort-button" onClick={toggleSortMenu}>
+                        {selectedSort}
                         <svg width="16" height="16" viewBox="0 0 24 24">
                             <path d="M12 16.5L6 10.5L7.4 9.1L12 13.7L16.6 9.1L18 10.5L12 16.5Z" fill="currentColor" />
                         </svg>
                     </button>
+                    {renderSortDropdown()}
                 </div>
             </div>
 
@@ -372,6 +523,18 @@ const ProductFilter: React.FC = () => {
 
 
 
+            <FilterProduct
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                queryFiler={queryFiler}
+                setQueryFilter={setQueryFilter}
+                listBrand={listBrand}
+                listSupplier={listSupplier}
+                pageSize={pageSize}
+                setListBook={setListBook}
+                setTotal={setTotal}
+                listFullCategory={listFullCategory}
+            />
         </div>
     );
 };

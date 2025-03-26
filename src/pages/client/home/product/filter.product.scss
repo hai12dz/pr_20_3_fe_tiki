@@ -6,7 +6,6 @@
     color: #38383D;
     position: relative; // Ensure proper positioning context
     overflow: hidden; // Ensure the modal is not clipped
-    z-index: 8000 !important; // Ensure the container creates a stacking context
 
     // Specific selector to override any other styles
     >.left-arrow-button {
@@ -19,7 +18,7 @@
         align-items: center !important;
         justify-content: center !important;
         cursor: pointer !important;
-        z-index: 9999 !important;
+
         opacity: 1 !important;
         visibility: visible !important;
     }
@@ -37,7 +36,7 @@
     .filter-sections-wrapper {
         position: relative; // Ensure proper positioning context
         overflow: visible; // Remove 'hidden' to allow the modal to display properly
-        z-index: 1;
+
     }
 
     .filter-header {
@@ -45,7 +44,7 @@
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        z-index: 3; // Lower z-index to ensure it does not overlap the "Nhà cung cấp" button
+
 
         .filter-button {
             display: flex;
@@ -98,7 +97,7 @@
                     width: 60px; // Reduce width to not cover the divider
                     background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
                     pointer-events: none;
-                    z-index: 10;
+
                     display: block; // Make sure it's displayed
                 }
 
@@ -108,13 +107,14 @@
                     .option-chip:nth-child(1) {
                         opacity: 0.6;
                         position: relative;
-                        z-index: 1;
+
                     }
 
                     .option-chip:nth-child(2) {
                         opacity: 0.8;
                         position: relative;
-                        z-index: 1;
+
+
                         border-radius: 16px;
                         border-image-source: linear-gradient(to right, rgba(255, 255, 255, 0) 50%, rgba(16, 15, 15, 0.8) 100%);
 
@@ -128,7 +128,8 @@
                             border-radius: 16px;
                             background: linear-gradient(to right, rgb(255, 255, 255) 40%, rgba(239, 235, 235, 0) 70%, rgba(255, 255, 255, 0) 100%);
                             pointer-events: none;
-                            z-index: 2;
+
+
                             display: block; // Ensure it's visible
 
                         }
@@ -148,7 +149,7 @@
         overflow: visible;
         transition: transform 0.3s ease;
         will-change: transform;
-        z-index: 9000 !important; // Increase z-index significantly to create proper stacking context
+
         padding-left: 0; // Remove the left padding so it aligns with content below
     }
 
@@ -176,7 +177,7 @@
             margin-right: -16px;
             align-self: flex-start;
             position: relative; // Ensure it has its own positioning context
-            z-index: 20 !important; // Higher z-index to ensure visibility
+
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0.7; // Make it slightly faded for a subtle look
             font-size: 18px; // Make the text character larger
@@ -195,16 +196,14 @@
     }
 
     // Override any gradient effects that might hide the divider
-    .filter-sections.translated .filter-sections-brand::before {
-        z-index: 5; // Lower z-index than the divider
-    }
+    .filter-sections.translated .filter-sections-brand::before {}
 
     .filter-sections-brand {
         position: relative;
         overflow: visible;
         transition: transform 0.3s ease;
         will-change: transform;
-        z-index: 6; // Ensure it appears above other elements
+
         padding-left: 0; // Remove the left padding so it aligns with content below
 
 
@@ -221,13 +220,15 @@
     .filter-sections-supplier {
         position: relative;
         overflow: visible;
-        z-index: 5; // Ensure it appears above the filter header
+
+
 
         .supplier-options-container {
             transition: transform 0.3s ease;
             will-change: transform;
             position: relative;
-            z-index: 1;
+
+
 
             .filter-options {
                 width: 100%; // Ensure full width for all buttons
@@ -243,7 +244,7 @@
 
     .filter-section {
         position: relative;
-        z-index: 9500 !important; // Higher z-index for parent of modal
+
 
         .section-label {
             font-size: 14px;
@@ -256,14 +257,14 @@
             display: flex;
             align-items: center;
             position: relative;
-            z-index: 9600 !important; // Increase z-index
+
         }
 
         .expand-button {
             transition: transform 0.3s ease;
             margin-left: 10px;
             position: relative;
-            z-index: 9700 !important; // Higher z-index
+
             background: #fff;
             border: 1px solid #D8D8D8;
             border-radius: 50%; // Make it circular
@@ -300,7 +301,7 @@
             transition: transform 0.3s ease;
             will-change: transform;
             position: relative;
-            z-index: 1;
+
 
 
 
@@ -363,7 +364,8 @@
                     height: 100%;
                     background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
                     pointer-events: none;
-                    z-index: 2;
+
+
                     border-radius: 16px;
                     display: none; // This is controlled by parent container's gradient
                 }
@@ -384,7 +386,7 @@
             transition: all 0.2s;
             color: #808089;
             margin-left: 10px;
-            z-index: 5; // Increased z-index
+
 
             &:hover {
                 background-color: #f5f5f5;
@@ -519,7 +521,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none; // Allow clicks to pass through to underlying elements
-    z-index: 99999;
+
 
     &>* {
         pointer-events: auto; // But enable interaction with direct children
@@ -804,7 +806,7 @@ body>.brand-selection-modal {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    z-index: 9999999 !important;
+
 
 
     .brand-selection-content {
@@ -820,6 +822,155 @@ body>.brand-selection-modal {
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
-    z-index: 9999999 !important;
+
     outline: 5px solid red !important;
+}
+
+.sort-dropdown {
+    position: relative;
+    display: inline-block;
+
+    .sort-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #38383D;
+        background: white;
+        border: 1px solid #D8D8D8;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #F5F5FA;
+            border-color: #C0C0C0;
+        }
+
+        svg {
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+            color: #808089;
+        }
+    }
+
+    .sort-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 200px;
+        margin-top: 8px;
+        background: white;
+        border: 1px solid #E0E0E0;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        display: none; // Hidden by default
+        flex-direction: column;
+
+        &.visible {
+            display: flex; // Show when active
+        }
+
+        .sort-item {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #38383D;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &:hover {
+                background: #F5F5FA;
+            }
+
+            &.selected {
+                background: #EBF5FF;
+                color: #0B74E5;
+
+                svg {
+                    color: #0B74E5;
+                }
+            }
+
+            svg {
+                width: 16px;
+                height: 16px;
+                color: #0B74E5;
+            }
+        }
+
+        .divider {
+            height: 1px;
+            background: #E0E0E0;
+            margin: 4px 0;
+        }
+    }
+}
+
+.sort-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+
+    .sort-item {
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #38383D;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:hover {
+            background: #F5F5FA;
+        }
+
+        &.selected {
+            background: #EBF5FF;
+            color: #0B74E5;
+
+            svg {
+                color: #0B74E5;
+            }
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            color: #0B74E5;
+        }
+    }
+}
+
+.filter-product-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); // Add a background overlay
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-content {
+        background: white;
+        border-radius: 8px;
+        padding: 16px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+        overflow: hidden; // Prevent content overflow
+    }
 }
