@@ -85,15 +85,16 @@ const ProductFilter: React.FC = () => {
                     left: `${buttonRect.left + window.scrollX}px`,
                     width: '450px',
                     maxWidth: '90vw',
+                    maxHeight: '80vh', // Limit height to 80% of the viewport
                     zIndex: 9999,
                     background: 'white',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
                     border: '1px solid #E0E0E0',
                     borderRadius: '8px',
-                    overflow: 'hidden', // Ensure no scrollbars
-                    height: 'auto', // Dynamically adjust height to fit content
+                    overflowY: 'auto', // Enable vertical scrollbar for overflow content
                     display: 'flex', // Use flexbox for alignment
-                    flexDirection: 'column' // Stack content vertically
+                    flexDirection: 'column', // Stack content vertically
+                    alignItems: 'flex-start', // Align content to the start
                 }}
             >
 
@@ -368,8 +369,6 @@ const ProductFilter: React.FC = () => {
 
             {/* Render the modal outside the normal flow */}
             {brandExpanded && renderBrandModal()}
-
-
 
 
 

@@ -405,25 +405,23 @@
         }
     }
 
-    // Remove duplicate .brand-selection-modal styling inside .product-filter-container
 }
 
-// Update the brand-selection-modal styles for better visibility
 .brand-selection-modal {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     border: 1px solid #E0E0E0;
     min-width: 320px;
-    max-height: none !important; // Remove fixed height
-    height: auto !important; // Adjust height to fit content
-    overflow: visible !important; // Remove scrollbars
+    max-height: 80vh !important; // Limit height to 80% of the viewport
+    height: auto !important; // Dynamically adjust height to fit content
+    overflow-y: auto !important; // Enable vertical scrollbar for overflow content
+    display: flex; // Use flexbox for alignment
+    flex-direction: column; // Stack content vertically
+    align-items: flex-start; // Align content to the start
     /* Allow the modal to expand fully */
     transform-origin: top left; // For smoother animations
     animation: modalFadeIn 0.2s ease-out; // Add animation for visibility
-    overflow: hidden !important; // Ensure no scrollbars
-    display: flex; // Use flexbox to ensure proper content alignment
-    flex-direction: column; // Stack content vertically
 
     @keyframes modalFadeIn {
         from {
@@ -444,6 +442,22 @@
         display: none; // Remove debugging outline
     }
 
+    &::-webkit-scrollbar {
+        width: 8px; // Customize scrollbar width
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #ccc; // Customize scrollbar thumb color
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #aaa; // Darker color on hover
+    }
+
+    -ms-overflow-style: none !important; // Hide scrollbar for IE/Edge
+    scrollbar-width: none !important; // Hide scrollbar for Firefox
+
     .brand-selection-content {
         padding: 16px;
         display: flex;
@@ -456,29 +470,8 @@
         flex-wrap: wrap;
         gap: 8px;
         max-height: none !important; // Remove fixed height
-        height: auto !important; // Adjust height to fit content
-        overflow: hidden !important; // Ensure no scrollbars
-        /* Allow options to expand fully */
-
-        .brand-selection-chip {
-            border: 1px solid #D8D8D8;
-            border-radius: 16px;
-            padding: 8px 16px;
-            font-size: 14px;
-            background-color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-
-            &:hover {
-                background-color: #f5f5f5;
-            }
-
-            &.selected {
-                border-color: #0B74E5;
-                color: #0B74E5;
-                background-color: #EBF5FF;
-            }
-        }
+        height: auto !important; // Dynamically adjust height
+        overflow: visible !important; // Ensure no overflow within options
     }
 
     .brand-selection-actions {
