@@ -86,7 +86,7 @@ export const deleteUserAPI = (_id: string) => {
 
 
 export const getBooksAPI = (query: string) => {
-    const urlBackend = `/api/v1/book?${query}`;
+    const urlBackend = `/products/books?${query}`;
     return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend,
         {
             headers: {

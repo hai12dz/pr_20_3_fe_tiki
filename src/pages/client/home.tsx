@@ -26,6 +26,7 @@ import TikiBooksAds from './home/ads';
 import BookShopComponent from './home/danhmuc';
 import RelatedSearch from './home/related.search';
 import TikiBestsellers from './home/best.seller';
+import Product from './home/product/product';
 
 
 
@@ -320,7 +321,14 @@ const HomePage = () => {
 
                         <CategoryExplorer />
 
-                        <TikiBookstore />
+                        <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+                            <TikiBookstore />
+                            <div className="product-wrapper">
+                                <Product />
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <RecentlyViewedProducts />
