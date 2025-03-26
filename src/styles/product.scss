@@ -42,9 +42,8 @@
 
             .badge-container {
                 position: absolute;
-                top: 40px; // Căn chỉnh badge cách phía trên 40px
-                right: 10px; // Căn chỉnh badge cách phía phải 10px
-                z-index: 10; // Đảm bảo badge nằm trên các thành phần khác
+                top: 0px; // Căn chỉnh badge cách phía trên
+                right: 10px !important; // Đặt vị trí ở bên phải và thêm !important
 
                 .product-badge {
                     width: 40px; // Đặt kích thước badge
@@ -61,27 +60,16 @@
                 align-items: center;
                 justify-content: center;
                 margin-bottom: 10px;
+                padding: 0;
+                border: none;
 
                 img {
                     width: 280px !important; // Đảm bảo chiều rộng cố định của ảnh
                     height: 280px !important; // Đảm bảo chiều cao cố định của ảnh
                     object-fit: cover; // Đảm bảo ảnh được cắt vừa khung mà không bị méo
                     border-radius: 4px;
-                }
-
-                .badge-container {
-                    position: absolute;
-                    bottom: 10px; // Đặt badge cách phía dưới 10px
-                    left: 10px; // Đặt badge cách phía trái 10px
-                    z-index: 10; // Đảm bảo badge nằm trên ảnh
-                    display: flex;
-                    align-items: center;
-
-                    .product-badge {
-                        width: 40px; // Đặt kích thước badge
-                        height: 40px;
-                        object-fit: contain; // Đảm bảo badge không bị méo
-                    }
+                    max-width: none !important; // Ghi đè max-width để đảm bảo chiều rộng cố định
+                    max-height: none !important; // Ghi đè max-height để đảm bảo chiều cao cố định
                 }
             }
 
@@ -156,58 +144,6 @@
                     display: none;
                 }
             }
-        }
-    }
-
-    .column.top-deal-column {
-        .wrapper {
-            position: relative;
-            background-color: white;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-
-            &:hover {
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-                transform: translateY(-5px);
-            }
-
-            .thumbnail {
-                position: relative;
-                height: 280px !important; // Đảm bảo chiều cao cố định
-                width: 280px !important; // Đảm bảo chiều rộng cố định
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 10px;
-                padding: 0;
-                border: none;
-
-                img {
-                    width: 280px !important; // Đảm bảo chiều rộng cố định của ảnh
-                    height: 280px !important; // Đảm bảo chiều cao cố định của ảnh
-                    object-fit: cover; // Đảm bảo ảnh được cắt vừa khung mà không bị méo
-                    border-radius: 4px;
-                    max-width: none !important; // Ghi đè max-width để đảm bảo chiều rộng cố định
-                    max-height: none !important; // Ghi đè max-height để đảm bảo chiều cao cố định
-                }
-
-                .badge-container {
-                    position: absolute;
-                    bottom: 10px;
-                    left: 10px;
-                    z-index: 10;
-                    display: flex;
-                    align-items: center;
-
-                    .product-badge {
-                        width: 40px;
-                        height: 40px;
-                        object-fit: contain;
-                    }
-                }
-            }
-
-            // ...existing code for other elements...
         }
     }
 
