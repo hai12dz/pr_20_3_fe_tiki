@@ -164,24 +164,25 @@
 
 
             .text span {
-                height: 40px;
+                height: auto; // Để phù hợp với nội dung thay vì cố định 40px
                 margin: 8px 0;
-
-                font-size: 16px; // Cập nhật kích thước font theo đoạn mới
-                font-weight: 400; // Độ dày chữ
+                font-size: 16px; // Kích thước chữ
+                font-weight: 400; // Độ dày chữ bình thường
                 font-style: normal; // Kiểu chữ bình thường
-                line-height: 150%; // Độ cao dòng (24px nếu font-size 16px)
-                color: rgb(39, 39, 42); // Cập nhật màu chữ
+                line-height: 1.5; // Tương đương 150% chiều cao chữ
+                color: rgb(39, 39, 42); // Màu chữ
 
-                display: -webkit-box; // Dùng flexbox để căn chỉnh
-                -webkit-box-orient: vertical; // Chia khối theo chiều dọc
-                -webkit-line-clamp: 3; // Giới hạn số dòng hiển thị (3 dòng)
+                // Kiểm soát hiển thị văn bản khi dài quá số dòng giới hạn
+                display: -webkit-box; // Hiển thị dưới dạng box để hỗ trợ clamping
+                -webkit-box-orient: vertical; // Căn chỉnh nội dung theo chiều dọc
+                -webkit-line-clamp: 3; // Giới hạn hiển thị tối đa 3 dòng
 
-                overflow: hidden; // Ẩn phần tràn
-                text-overflow: ellipsis; // Hiển thị dấu "..." khi nội dung dài
-                word-break: break-word; // Ngắt dòng khi gặp từ dài
+                overflow: hidden; // Ẩn phần nội dung dư thừa
+                text-overflow: ellipsis; // Hiển thị dấu "..." khi nội dung bị cắt
+                word-break: break-word; // Ngắt dòng nếu từ quá dài
                 align-self: stretch; // Căn chỉnh chiều cao theo phần tử cha
             }
+
 
 
 

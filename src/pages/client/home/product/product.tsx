@@ -169,10 +169,8 @@ const Product = () => {
                                         />
                                         <span>Đã bán {item?.sold ?? 0}</span>
                                     </div>
-                                    <div>
-                                        <Divider />
-
-                                    </div>
+                                    {/* Divider */}
+                                    <Divider style={{ borderColor: '#d9d9d9', borderWidth: '1px', margin: '8px 0' }} />
                                     <div className="delivery">
                                         <img
 
