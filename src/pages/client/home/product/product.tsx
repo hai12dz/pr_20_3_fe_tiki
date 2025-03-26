@@ -1,6 +1,6 @@
 import { getBooksAPI } from "@/services/api";
 import { ReloadOutlined } from "@ant-design/icons";
-import { Button, Rate, Row, Col } from "antd";
+import { Button, Rate, Row, Col, Tag } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import 'styles/product.scss'
@@ -82,11 +82,11 @@ const Product = () => {
                 {filteredBooks?.length > 0 ? (
                     filteredBooks.map((item, index) => (
                         <Col
-                            xs={24} // 1 sản phẩm trên 1 hàng ở màn hình nhỏ
-                            sm={12} // 2 sản phẩm trên 1 hàng ở màn hình trung bình
-                            md={8} // 3 sản phẩm trên 1 hàng ở màn hình lớn hơn
-                            lg={6} // 4 sản phẩm trên 1 hàng ở màn hình lớn
-                            xl={6} // Đảm bảo vẫn là 4 sản phẩm ở màn hình rất lớn
+                            xs={24}
+                            sm={12}
+                            md={8}
+                            lg={6}
+                            xl={6}
                             key={`book-${index}`}
                             style={{ marginBottom: '16px' }}
                         >
@@ -95,31 +95,52 @@ const Product = () => {
                                     navigate(`/book/${item.id}`);
                                     addViewedProduct(item.id);
                                 }}
-                                className="column"
+                                className="column top-deal-column"
                             >
                                 <div className="wrapper">
+                                    <div className="top-deal-badge">
+                                        <Tag color="red">TOP DEAL</Tag>
+                                    </div>
                                     <div className="thumbnail">
                                         <img
-                                            src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item.thumbnail}`}
+                                            src="https://salt.tikicdn.com/cache/280x280/ts/product/17/4a/65/b4765d60127ee4cccf8fd551633fafd4.png.webp"
                                             alt="thumbnail book"
                                         />
                                     </div>
+                                    <div className="price-section">
+                                        <div className="price">
+                                            {new Intl.NumberFormat("vi-VN", {
+                                                style: "currency",
+                                                currency: "VND",
+                                            }).format(item?.price ?? 0)}
+                                        </div>
+                                        <div className="discount">
+                                            {item.promotion && (
+                                                <span className="promotion-tag">-{item.promotion}%</span>
+                                            )}
+                                        </div>
+                                    </div>
                                     <div className="text" title={item.mainText}>
-                                        {item.mainText}
+                                        <span>{item.mainText}</span>
                                     </div>
-                                    <div className="price">
-                                        {new Intl.NumberFormat("vi-VN", {
-                                            style: "currency",
-                                            currency: "VND",
-                                        }).format(item?.price ?? 0)}
+                                    <div className="author-rating">
+                                        <div className="author" title={item.author}>
+                                            <span>{item.author}</span>
+                                        </div>
+                                        <div className="rating">
+                                            <Rate
+                                                value={5}
+                                                disabled
+                                                style={{ fontSize: 12 }}
+                                            />
+                                            <span>Đã bán {item?.sold ?? 0}</span>
+                                        </div>
                                     </div>
-                                    <div className="rating">
-                                        <Rate
-                                            value={5}
-                                            disabled
-                                            style={{ color: "#ffce3d", fontSize: 10 }}
-                                        />
-                                        <span>Đã bán {item?.sold ?? 0}</span>
+                                    <div className="extra-badges">
+                                        <Tag color="blue">CHÍNH HÃNG</Tag>
+                                        <div className="delivery-tag">
+                                            <span>Giao siêu tốc 2h</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
