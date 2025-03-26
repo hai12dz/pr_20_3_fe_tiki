@@ -285,6 +285,28 @@
                     display: none;
                 }
             }
+
+            .delivery {
+                img {
+                    height: 16px; // Match the height of the text
+                    width: auto;
+                    display: inline-block; // Ensure proper alignment
+                    vertical-align: middle; // Align with text
+                    margin-right: 8px; // Add spacing between img and text
+                }
+
+                .service-text {
+                    font-size: 14px;
+                    color: #38383d;
+                    margin-left: -8px; // Reduce spacing between img and text
+                    margin-top: 2px; // Adjust vertical alignment
+                    display: inline-block; // Ensure margin-top works
+                    position: relative; // Allow fine-tuning with top
+                    left: 5px;
+                    top: 2px; // Slightly move the text down
+                }
+
+            }
         }
     }
 

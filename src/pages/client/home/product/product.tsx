@@ -1,6 +1,6 @@
 import { getBooksAPI } from "@/services/api";
 import { ReloadOutlined, StarFilled } from "@ant-design/icons";
-import { Button, Rate, Row, Col, Tag } from "antd";
+import { Button, Rate, Row, Col, Tag, Divider } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import 'styles/product.scss'
@@ -169,16 +169,27 @@ const Product = () => {
                                         />
                                         <span>Đã bán {item?.sold ?? 0}</span>
                                     </div>
+                                    <div>
+                                        <Divider />
 
-                                    {/* Extra Badges */}
-                                    <div className="extra-badges">
-                                        <Tag color="blue">CHÍNH HÃNG</Tag>
-                                        <div className="delivery-tag">
-                                            <span>Giao siêu tốc 2h</span>
-                                        </div>
                                     </div>
+                                    <div className="delivery">
+                                        <img
+
+                                            src="https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png"
+                                            alt="Giao siêu tốc 2H"
+                                            className="service-icon"
+                                        />
+                                        <span className="service-text"> Giao siêu tốc 2H </span>
+
+                                    </div>
+
                                 </div>
+
                             </div>
+
+
+
                         </Col>
                     ))
                 ) : (
