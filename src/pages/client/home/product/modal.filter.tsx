@@ -154,7 +154,7 @@ const FilterProduct: React.FC<IProps> = ({
                                 alt="Giao siêu tốc 2H"
                                 className="service-icon"
                             />
-                            Giao siêu tốc 2H
+                            <span className="service-text"> Giao siêu tốc 2H </span>
                         </Checkbox>
                     </Col>
                 </Row>
@@ -171,7 +171,8 @@ const FilterProduct: React.FC<IProps> = ({
                                 alt="Siêu rẻ"
                                 className="promotion-icon"
                             />
-                            Siêu rẻ
+                            <span className="promotion-text">  Siêu rẻ </span>
+
                         </Checkbox>
                     </Col>
                     <Col span={12}>
