@@ -112,6 +112,17 @@
                 }
             }
 
+            .price-section,
+            .author,
+            .text,
+            .rating {
+                flex-shrink: 0; // Ngăn các phần tử này co lại
+                flex-grow: 1; // Cho phép các phần tử này mở rộng để đồng nhất chiều cao
+                display: flex;
+                align-items: center; // Căn giữa nội dung theo chiều dọc
+                justify-content: flex-start; // Căn nội dung về bên trái
+            }
+
             .price-section {
                 display: flex;
                 align-items: center;
@@ -119,6 +130,9 @@
                 height: 27px;
                 width: auto;
                 padding-left: 10px;
+                min-height: 40px; // Đặt chiều cao tối thiểu để đồng nhất
+                display: flex;
+                align-items: center; // Căn giữa nội dung theo chiều dọc
 
                 .price {
                     font-size: 18px;
@@ -150,6 +164,9 @@
 
             .author {
                 padding-left: 10px;
+                min-height: 40px; // Đặt chiều cao tối thiểu để đồng nhất
+                display: flex;
+                align-items: center; // Căn giữa nội dung theo chiều dọc
 
                 span {
                     overflow: hidden;
@@ -171,6 +188,9 @@
 
             .text {
                 padding-left: 10px;
+                min-height: 40px; // Đặt chiều cao tối thiểu để đồng nhất
+                display: flex;
+                align-items: center; // Căn giữa nội dung theo chiều dọc
 
                 span {
                     height: auto;
@@ -289,6 +309,7 @@
 
             .delivery {
                 padding-left: 10px;
+                margin-top: auto; // Đẩy phần delivery xuống cuối cùng
 
                 img {
                     height: 16px;
@@ -308,6 +329,14 @@
                     left: 5px;
                     top: 2px;
                 }
+            }
+
+            .divider {
+                margin: 8px 0;
+                border-color: #d9d9d9;
+                border-width: 1px;
+                width: 100%;
+                align-self: stretch; // Đảm bảo Divider chiếm toàn bộ chiều rộng
             }
         }
     }
