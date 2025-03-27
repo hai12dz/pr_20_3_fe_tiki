@@ -11,9 +11,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: stretch; // Đảm bảo các cột kéo dài theo chiều cao lớn nhất
-
-        // Thêm đoạn này để đảm bảo các cột có cùng chiều cao
-
+        row-gap: 8px;
 
         // Đảm bảo cột chiếm toàn bộ chiều cao 
         .column {
@@ -30,6 +28,7 @@
         transition: transform 0.3s ease;
         display: flex;
         flex-direction: column;
+        margin-bottom: 6px;
 
         &:hover {
             transform: translateY(-5px);
