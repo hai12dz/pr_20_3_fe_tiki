@@ -130,7 +130,6 @@
                 height: 27px;
                 width: auto;
                 padding-left: 10px;
-                min-height: 40px; // Đặt chiều cao tối thiểu để đồng nhất
                 display: flex;
                 align-items: center; // Căn giữa nội dung theo chiều dọc
 
@@ -164,7 +163,6 @@
 
             .author {
                 padding-left: 10px;
-                min-height: 40px; // Đặt chiều cao tối thiểu để đồng nhất
                 display: flex;
                 align-items: center; // Căn giữa nội dung theo chiều dọc
 
@@ -188,7 +186,6 @@
 
             .text {
                 padding-left: 10px;
-                min-height: 40px; // Đặt chiều cao tối thiểu để đồng nhất
                 display: flex;
                 align-items: center; // Căn giữa nội dung theo chiều dọc
 
