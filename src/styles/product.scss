@@ -11,17 +11,12 @@
         display: flex;
         flex-wrap: wrap;
         align-items: stretch; // Đảm bảo các cột kéo dài theo chiều cao lớn nhất
+        gap: 6px; // Giảm khoảng cách giữa các phần tử xuống 6px
 
-        // Thêm đoạn này để đảm bảo các cột có cùng chiều cao
-        >.ant-col {
+        .column {
+            width: 200px;
             display: flex;
-
-            // Đảm bảo cột chiếm toàn bộ chiều cao 
-            .column {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-            }
+            flex-direction: column;
         }
     }
 
@@ -40,9 +35,9 @@
         .wrapper {
             flex-grow: 1; // Cho phép wrapper mở rộng để chiếm toàn bộ không gian
             height: 100%; // Chiếm toàn bộ chiều cao của cột
+            width: 276px;
             background-color: #f9f9f9;
             border-radius: 8px;
-            padding: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             display: flex;
@@ -65,22 +60,23 @@
 
             .thumbnail {
                 position: relative;
-                height: 280px !important;
-                width: 280px !important;
+                height: 276px; // Chiều cao của container chứa ảnh
+                width: 276px; // Chiều rộng của container chứa ảnh
                 display: flex;
-                align-items: center;
-                justify-content: center;
+                align-items: center; // Căn giữa ảnh theo chiều dọc
+                justify-content: center; // Căn giữa ảnh theo chiều ngang
                 margin-bottom: 10px;
-                padding: 0;
+                padding: 0; // Đảm bảo không có padding gây lệch
                 border: none;
 
                 img {
-                    width: 280px !important;
-                    height: 280px !important;
-                    object-fit: cover;
+                    height: 100%; // Đảm bảo ảnh chiếm toàn bộ chiều cao của container
+                    width: 100%; // Đảm bảo ảnh chiếm toàn bộ chiều rộng của container
+                    object-fit: cover; // Đảm bảo ảnh không bị méo
                     border-radius: 4px;
-                    max-width: none !important;
-                    max-height: none !important;
+                    margin: 0; // Loại bỏ margin để tránh ảnh bị lệch
+                    padding: 0; // Loại bỏ padding để tránh ảnh bị lệch
+                    display: block; // Đảm bảo ảnh không bị ảnh hưởng bởi inline spacing
                 }
 
                 .ads-badge {
@@ -311,13 +307,13 @@
 
     @media screen and (max-width: 992px) {
         .column {
-            width: calc(33.33% - 12px);
+            width: calc(33.33% - 6px); // Đảm bảo các cột có chiều rộng phù hợp
         }
     }
 
     @media screen and (max-width: 768px) {
         .column {
-            width: calc(50% - 12px);
+            width: calc(50% - 6px); // Đảm bảo các cột có chiều rộng phù hợp
         }
     }
 
