@@ -42,7 +42,7 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start; // Đảm bảo các phần tử không bị ép căn chỉnh
             align-items: flex-start;
             position: relative;
 
@@ -112,17 +112,6 @@
                 }
             }
 
-            .price-section,
-            .author,
-            .text,
-            .rating {
-                flex-shrink: 0; // Ngăn các phần tử này co lại
-                flex-grow: 1; // Cho phép các phần tử này mở rộng để đồng nhất chiều cao
-                display: flex;
-                align-items: center; // Căn giữa nội dung theo chiều dọc
-                justify-content: flex-start; // Căn nội dung về bên trái
-            }
-
             .price-section {
                 display: flex;
                 align-items: center;
@@ -189,9 +178,10 @@
             .text {
                 padding-left: 10px;
                 display: flex;
-                align-items: center; // Căn giữa nội dung theo chiều dọc
-                min-height: 48px; // Đặt chiều cao tối thiểu để đồng nhất
+                align-items: flex-start; // Thay đổi này để text căn lề trên
+                min-height: auto; // Bỏ min-height cố định
                 overflow: hidden;
+                margin-bottom: 0; // Loại bỏ margin để rating nằm sát với text
 
                 span {
                     height: auto;
@@ -213,14 +203,13 @@
             }
 
             .rating {
-                position: relative;
-                height: 20px;
+                padding-left: 10px;
                 display: flex;
                 align-items: center;
-                justify-content: flex-start;
-                gap: 0;
-                margin-top: 8px;
-                padding-left: 10px;
+                margin: 4px 0 0 0; // Chỉ để margin-top nhỏ để sát với text
+                height: auto;
+                flex-grow: 0; // Không mở rộng
+                flex-shrink: 0; // Không co lại
 
                 .ant-rate {
                     display: flex;
@@ -232,85 +221,15 @@
                     margin-right: 0;
                 }
 
-                .ant-rate-star svg {
-                    width: 12px;
-                    height: 12px;
-                }
-
                 span {
-                    height: 21px;
                     font-size: 12px;
-                    font-weight: 400;
-                    line-height: 20px;
-                    color: rgb(128, 128, 137);
-                    text-align: start;
                     margin-left: 4px;
-
-                    background-color: rgba(0, 0, 0, 0);
-                    cursor: pointer;
-                }
-
-                align-self: auto;
-                block-size: 14.6px;
-                box-sizing: border-box;
-                clip: auto;
-                flex-basis: auto;
-                flex-direction: row;
-                flex-grow: 0;
-                flex-shrink: 1;
-                flex-wrap: nowrap;
-                float: none;
-                width: 60px;
-                z-index: auto;
-
-                font-family: Inter,
-                Helvetica,
-                Arial,
-                sans-serif;
-                font-size: 12px;
-                font-weight: 400;
-                font-style: normal;
-                font-variant-ligatures: normal;
-                font-variant-caps: normal;
-                line-height: 13.8px;
-                letter-spacing: normal;
-                text-align: start;
-                text-decoration: none;
-                text-transform: none;
-                text-overflow: clip;
-                white-space: nowrap;
-                word-break: normal;
-                word-spacing: 0px;
-                color: rgb(36, 36, 36);
-
-                background-color: rgba(0, 0, 0, 0);
-                border: none;
-                outline: none;
-
-                box-shadow: none;
-                cursor: pointer;
-
-                margin: 0px;
-
-                -webkit-box-align: center;
-                -webkit-box-direction: normal;
-                -webkit-box-flex: 0;
-                -webkit-box-ordinal-group: 1;
-                -webkit-box-orient: horizontal;
-                -webkit-box-pack: start;
-
-                border-radius: 0px;
-                transform: none;
-                transform-style: flat;
-
-                @media screen and (max-width: 1280px) {
-                    display: none;
                 }
             }
 
             .delivery {
                 padding-left: 10px;
-                margin-top: auto; // Đẩy phần delivery xuống cuối cùng
+                margin-top: 0; // Đảm bảo delivery nằm ngay sau divider
 
                 img {
                     height: 16px;
@@ -330,6 +249,10 @@
                     left: 5px;
                     top: 2px;
                 }
+            }
+
+            .spacer {
+                flex-grow: 1; // Đẩy divider xuống cuối
             }
 
             .divider {

@@ -157,7 +157,7 @@ const Product = () => {
                                         <span>{item.mainText}</span>
                                     </div>
 
-
+                                    {/* Rating - đặt ngay sau text, không có spacer */}
                                     <div className="rating">
                                         <Rate
                                             className="rate"
@@ -168,8 +168,13 @@ const Product = () => {
                                         />
                                         <span>Đã bán {item?.sold ?? 0}</span>
                                     </div>
+
+                                    {/* Spacer - sẽ đẩy divider xuống cuối */}
+                                    <div style={{ flex: '1' }}></div>
+
                                     {/* Divider */}
-                                    <Divider style={{ borderColor: '#d9d9d9', borderWidth: '1px', margin: '8px 0' }} />
+                                    <Divider className="divider" style={{ margin: '0' }} />
+
                                     <div className="delivery">
                                         <img
 
