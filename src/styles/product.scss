@@ -132,6 +132,7 @@
                 padding-left: 10px;
                 display: flex;
                 align-items: center; // Căn giữa nội dung theo chiều dọc
+                margin-top: 8px; // Tạo khoảng cách cố định với phần trên
 
                 .price {
                     font-size: 18px;
@@ -188,6 +189,8 @@
                 padding-left: 10px;
                 display: flex;
                 align-items: center; // Căn giữa nội dung theo chiều dọc
+                min-height: 48px; // Đặt chiều cao tối thiểu để đồng nhất
+                overflow: hidden;
 
                 span {
                     height: auto;
@@ -199,7 +202,7 @@
 
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 3;
+                    -webkit-line-clamp: 3; // Giới hạn hiển thị tối đa 3 dòng
 
                     overflow: hidden;
                     text-overflow: ellipsis;
