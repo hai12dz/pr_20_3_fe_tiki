@@ -101,7 +101,6 @@ const Product = () => {
                             lg={6}
                             xl={6}
                             key={`book-${index}`}
-                            style={{ marginBottom: '16px' }}
                         >
                             <div
                                 onClick={() => {
